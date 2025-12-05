@@ -1,8 +1,6 @@
 ---
-// Importa cls, que asume que es la utilidad para unir clases (similar a cn de shadcn)
 import { cls } from '@/src/lib/utils';
 
-// Define las props. Se asume que también hay una prop 'maxWidth' aparte de 'variant' y 'className'
 interface Props {
   variant?: "simple" | "gradient" | "dotted" | "diamond" | "orbital" | "dashed" | "wave";
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'full';

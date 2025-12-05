@@ -1,4 +1,4 @@
-# 🌟 Hybrid-Astro-UI
+# 🌟 Hybrid Astro UI
 
 **Beautiful, accessible, and customizable components for Astro — built with a hybrid model inspired by shadcn/ui.**
 
@@ -6,10 +6,10 @@
 
 ---
 
-## ✨ Why Hybrid-Astro-UI?
+## ✨ Why Hybrid Astro UI?
 
-Hybrid provides a carefully crafted collection of high-quality components designed specifically for Astro.
-Our hybrid approach combines **zero-JavaScript Astro components** for maximum performance with **progressively enhanced Web Components** only where interactivity is essential.
+Hybrid Astro UI provides a carefully crafted collection of high-quality components designed specifically for Astro.
+Our hybrid approach combines **zero-JavaScript Astro components** for maximum performance and **progressively enhanced Web Components** only where interactivity is essential.
 
 Perfect for teams and developers who value **design consistency, accessibility, and performance**—without compromising functionality.
 
@@ -40,23 +40,31 @@ Pure Astro components without large external libraries. Simply copy and paste th
 ### ⚡ Optimized
 
 Most components ship with zero client-side JavaScript.
-When interactivity is needed, it's handled through small, lightweight Web Components.
+When interactivity is needed, it’s handled through small, lightweight Web Components.
 
 ---
 
 ## 📚 Documentation
 
 Explore the full documentation, examples, and component library:
-**[hybrid-astro-ui.dev](https://hybrid-astro-ui.vercel.app/)**
+👉 **[https://hybrid-astro-ui.vercel.app](https://hybrid-astro-ui.vercel.app)**
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Whether it's bug reports, feature requests, or pull requests—your input helps make **UI Blocks** better for everyone.
+We welcome contributions! Whether it’s bug reports, feature requests, or pull requests—your input helps make **Hybrid Astro UI** better for everyone.
+
+---
+
+## 📄 License
+
+MIT License — feel free to use, modify, and distribute responsibly.
 
 ---
 
 <div align="center">
   <p>Built with ❤️ for the Astro community</p>
 </div>
+
+

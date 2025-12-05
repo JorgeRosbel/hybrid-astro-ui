@@ -1,0 +1,93 @@
+---
+// Importa cls, que asume que es la utilidad para unir clases (similar a cn de shadcn)
+import { cls } from '@/src/lib/utils';
+
+// Define las props. Se asume que también hay una prop 'maxWidth' aparte de 'variant' y 'className'
+interface Props {
+  variant?: "simple" | "gradient" | "dotted" | "diamond" | "orbital" | "dashed" | "wave";
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  class?: string;
+}
+
+const {
+  variant = 'simple',
+  maxWidth = 'lg',
+  class:className,
+} = Astro.props;
+
+const widthClasses = {
+  sm: 'max-w-[300px]',
+  md: 'max-w-[500px]',
+  lg: 'max-w-[800px]',
+  xl: 'max-w-[1200px]',
+  full: 'max-w-full'
+};
+
+const baseContainerClasses = 'w-full flex items-center justify-center py-3 px-4';
+const containerClasses = cls(baseContainerClasses, className);
+
+const getWidthClass = (size: keyof typeof widthClasses) => widthClasses[size];
+const contentWidthClass = getWidthClass(maxWidth);
+---
+
+<div class={containerClasses}>
+  {variant === 'gradient' && (
+    <div
+      class={cls(
+        'w-full h-px relative overflow-hidden',
+        contentWidthClass
+      )}
+    >
+      <div class="absolute inset-0 bg-linear-to-r from-background via-border to-background"></div>
+      <div class="absolute inset-0 bg-linear-to-r from-transparent via-foreground/20 to-transparent"></div>
+    </div>
+  )}
+
+  {variant === 'dotted' && (
+    <div class={cls('w-full flex justify-between items-center gap-3', contentWidthClass)}>
+      <div class="flex-1 h-px bg-border"></div>
+      <div class="rounded-full bg-muted-foreground w-2 h-2 ring-4 ring-muted"></div>
+      <div class="flex-1 h-px bg-border"></div>
+    </div>
+  )}
+
+  {variant === 'diamond' && (
+    <div class={cls('w-full flex justify-between items-center gap-4', contentWidthClass)}>
+      <div class="flex-1 h-px bg-border"></div>
+      <div class="rotate-45 bg-primary w-3 h-3 ring-4 ring-primary/10"></div>
+      <div class="flex-1 h-px bg-border"></div>
+    </div>
+  )}
+
+  {variant === 'orbital' && (
+    <div class={cls('w-full flex justify-between items-center gap-2', contentWidthClass)}>
+      <div class="rounded-full bg-muted-foreground w-1.5 h-1.5"></div>
+      <div class="flex-1 h-px bg-border"></div>
+      <div class="rounded-full bg-accent w-3 h-3 ring-2 ring-accent/20"></div>
+      <div class="flex-1 h-px bg-border"></div>
+      <div class="rounded-full bg-muted-foreground w-1.5 h-1.5"></div>
+    </div>
+  )}
+
+  {variant === 'simple' && (
+    <div class={cls('w-full h-px bg-border', contentWidthClass)}></div>
+  )}
+
+  {variant === 'dashed' && (
+    <div class={cls('w-full h-px relative', contentWidthClass)}>
+      <div class="absolute inset-0 border-t-2 border-dashed border-border"></div>
+    </div>
+  )}
+
+  {variant === 'wave' && (
+    <div class={cls('w-full flex items-center gap-1', contentWidthClass)}>
+      <div class="flex-1 h-px bg-border"></div>
+      <div class="flex gap-1">
+        <div class="w-1 h-1 rounded-full bg-primary"></div>
+        <div class="w-1 h-1 rounded-full bg-accent"></div>
+        <div class="w-1 h-1 rounded-full bg-primary"></div>
+      </div>
+      <div class="flex-1 h-px bg-border"></div>
+    </div>
+  )}
+</div>

@@ -1,0 +1,78 @@
+---
+import { cls } from "@/src/lib/utils";
+
+interface Props {
+  class?:string
+}
+
+const { class:className } = Astro.props as Props
+---
+
+<theme-toggle class="flex itmes-center justify-center">
+  <button
+  class={cls("cursor-pointer",className)}
+    aria-label="Toggle theme"
+  >
+    <slot />
+  </button>
+</theme-toggle>
+
+<script>
+  class ThemeToggle extends HTMLElement {
+    private button: HTMLButtonElement;
+    
+    private themes = ['light', 'dark', 'system'] as const;
+    private currentTheme: typeof this.themes[number] = 'system';
+
+    constructor() {
+      super();
+      this.button = this.querySelector('button')!;
+    }
+
+    connectedCallback() {
+      this.loadCurrentTheme();
+      this.applyTheme(); 
+      
+      this.button.addEventListener('click', () => this.toggleTheme());
+    }
+
+    private loadCurrentTheme() {
+      const saved = localStorage.getItem('theme') as typeof this.themes[number] | null;
+      if (saved && this.themes.includes(saved)) {
+        this.currentTheme = saved;
+      } else {
+        this.currentTheme = 'system';
+      }
+    }
+
+    private toggleTheme() {
+      const isDarkCurrently = document.documentElement.classList.contains('dark');
+      
+
+      this.currentTheme = isDarkCurrently ? 'light' : 'dark';
+      
+    
+      localStorage.setItem('theme', this.currentTheme);
+      
+      this.applyTheme();
+      
+      window.dispatchEvent(new CustomEvent('theme-changed', {
+        detail: { theme: this.currentTheme }
+      }));
+    }
+
+    private applyTheme() {
+      const html = document.documentElement;
+      html.classList.remove('light', 'dark');
+      
+      if (this.currentTheme === 'system') {
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        html.classList.add(systemPrefersDark ? 'dark' : 'light');
+      } else {
+        html.classList.add(this.currentTheme);
+      }
+    }
+  }
+
+  customElements.define('theme-toggle', ThemeToggle);
+</script>

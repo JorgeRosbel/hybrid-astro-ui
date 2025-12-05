@@ -1,0 +1,30 @@
+---
+import Loeader from "@lucide/astro/icons/loader"
+import LoeaderCircle from "@lucide/astro/icons/loader-circle"
+import LoaderPinwheel from "@lucide/astro/icons/loader-pinwheel"
+import { cls } from "@/src/lib/utils"
+
+interface Props {
+    icon: "loader" | "loader-circle" | "loader-pinwheel"
+    size: "small" | "medium" | "large",
+    class?:string
+}
+
+const { size, class:className, icon } = Astro.props as Props
+
+const sizeClasses = {
+  small: "h-5 w-5",
+  medium: "h-6 w-6",
+  large: "h-8 w-8",
+};
+
+const mix_class = cls("animate-spin",sizeClasses[size], className )
+
+
+---
+
+{
+    icon === "loader" ? <Loeader class={mix_class} />: 
+    icon === "loader-circle" ? <LoeaderCircle class={mix_class} />: 
+    icon === "loader-pinwheel" ? <LoaderPinwheel class={mix_class} />: null
+}

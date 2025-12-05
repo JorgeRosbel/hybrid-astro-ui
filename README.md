@@ -58,12 +58,6 @@ We welcome contributions! Whether it's bug reports, feature requests, or pull re
 
 ---
 
-## 📄 License
-
-[Add your license information here]
-
----
-
 <div align="center">
   <p>Built with ❤️ for the Astro community</p>
 </div>

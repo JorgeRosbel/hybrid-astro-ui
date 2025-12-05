@@ -36,16 +36,16 @@
     "astro"
   ],
   "author": "JorgeRosbel",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Primarix/lunar-ui"
+    "url": "git+https://github.com/JorgeRosbel/ui-elements"
   },
   "bugs": {
-    "url": "https://github.com/Primarix/lunar-ui/issues"
+    "url": "https://github.com/JorgeRosbel/ui-elements/issues"
   },
-  "homepage": "https://github.com/Primarix/lunar-ui#readme",
+  "homepage": "https://github.com/JorgeRosbel/ui-elements#readme",
   "devDependencies": {
     "@esbuild-plugins/tsconfig-paths": "^0.1.2",
     "@types/figlet": "^1.7.0",

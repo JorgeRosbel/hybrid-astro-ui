@@ -1,11 +1,11 @@
 {
-  "name": "ui-elements",
+  "name": "ui-blocks",
   "version": "0.0.1",
-  "description": "UI Elements",
+  "description": "UI Blocks",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
-    "ui-elements": "dist/index.mjs"
+    "ui-blocks": "dist/index.mjs"
   },
   "scripts": {
     "build": "tsup",
@@ -40,12 +40,12 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JorgeRosbel/ui-elements"
+    "url": "git+https://github.com/JorgeRosbel/ui-blocks"
   },
   "bugs": {
-    "url": "https://github.com/JorgeRosbel/ui-elements/issues"
+    "url": "https://github.com/JorgeRosbel/ui-blocks/issues"
   },
-  "homepage": "https://github.com/JorgeRosbel/ui-elements#readme",
+  "homepage": "https://github.com/JorgeRosbel/ui-blocks#readme",
   "devDependencies": {
     "@esbuild-plugins/tsconfig-paths": "^0.1.2",
     "@types/figlet": "^1.7.0",

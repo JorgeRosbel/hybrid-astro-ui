@@ -1,7 +1,7 @@
 {
   "name": "hybrid-astro-ui",
   "version": "0.0.1",
-  "description": "UI Blocks",
+  "description": "Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {

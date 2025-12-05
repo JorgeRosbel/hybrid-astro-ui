@@ -1,22 +1,22 @@
-import { readFile } from "fs/promises";
-import { join } from "path";
-import inquirer from "inquirer";
-import chalk from "chalk";
-import { execSync } from "child_process";
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+import inquirer from 'inquirer';
+import chalk from 'chalk';
+import { execSync } from 'child_process';
 
 export const checkDependencies = async () => {
-  const path = join(process.cwd(), "package.json");
-  const raw = await readFile(path, "utf-8");
+  const path = join(process.cwd(), 'package.json');
+  const raw = await readFile(path, 'utf-8');
   const pkg = JSON.parse(raw);
 
   const deps = {
-    normal: ["@lucide/astro", "tailwind-merge", "clsx"],
-    tailwind: "tailwindcss"
+    normal: ['@lucide/astro', 'tailwind-merge', 'clsx'],
+    tailwind: 'tailwindcss',
   };
 
   const installed = {
     ...pkg.dependencies,
-    ...pkg.devDependencies
+    ...pkg.devDependencies,
   };
 
   const missingNormal: string[] = [];
@@ -28,7 +28,7 @@ export const checkDependencies = async () => {
   }
 
   // Detect Tailwind
-  if (!installed["tailwindcss"]) {
+  if (!installed['tailwindcss']) {
     missingTailwind = true;
   }
 
@@ -42,38 +42,38 @@ export const checkDependencies = async () => {
   // ───────────────────────────────────────────────
   const { pkgManager } = await inquirer.prompt([
     {
-      type: "list",
-      name: "pkgManager",
-      message: "Which package manager do you want to use?",
-      choices: ["pnpm", "npm", "yarn", "bun"],
-      default: "pnpm"
-    }
+      type: 'list',
+      name: 'pkgManager',
+      message: 'Which package manager do you want to use?',
+      choices: ['pnpm', 'npm', 'yarn', 'bun'],
+      default: 'pnpm',
+    },
   ]);
 
   // ───────────────────────────────────────────────
   // Build dynamic install commands
   // ───────────────────────────────────────────────
-  let installCmd = "";
-  let tailwindCmd = "";
+  let installCmd = '';
+  let tailwindCmd = '';
 
   switch (pkgManager) {
-    case "pnpm":
-      if (missingNormal.length > 0) installCmd = `pnpm add ${missingNormal.join(" ")}`;
+    case 'pnpm':
+      if (missingNormal.length > 0) installCmd = `pnpm add ${missingNormal.join(' ')}`;
       if (missingTailwind) tailwindCmd = `pnpm astro add tailwind`;
       break;
 
-    case "npm":
-      if (missingNormal.length > 0) installCmd = `npm install ${missingNormal.join(" ")}`;
+    case 'npm':
+      if (missingNormal.length > 0) installCmd = `npm install ${missingNormal.join(' ')}`;
       if (missingTailwind) tailwindCmd = `npx astro add tailwind`;
       break;
 
-    case "yarn":
-      if (missingNormal.length > 0) installCmd = `yarn add ${missingNormal.join(" ")}`;
+    case 'yarn':
+      if (missingNormal.length > 0) installCmd = `yarn add ${missingNormal.join(' ')}`;
       if (missingTailwind) tailwindCmd = `yarn astro add tailwind`;
       break;
 
-    case "bun":
-      if (missingNormal.length > 0) installCmd = `bun add ${missingNormal.join(" ")}`;
+    case 'bun':
+      if (missingNormal.length > 0) installCmd = `bun add ${missingNormal.join(' ')}`;
       if (missingTailwind) tailwindCmd = `bunx astro add tailwind`;
       break;
   }
@@ -81,54 +81,50 @@ export const checkDependencies = async () => {
   // Tailwind always last
   let finalCommand = installCmd;
   if (tailwindCmd) {
-    if (finalCommand) finalCommand += " && ";
+    if (finalCommand) finalCommand += ' && ';
     finalCommand += tailwindCmd;
   }
 
   // ───────────────────────────────────────────────
   // Show missing dependencies
   // ───────────────────────────────────────────────
-  console.log(chalk.cyan("\nMissing dependencies for ui-elements:\n"));
+  console.log(chalk.cyan('\nMissing dependencies for Hybrid-Astro-UI:\n'));
 
   if (missingNormal.length > 0) {
-    console.log(chalk.yellow("• Missing:"));
-    missingNormal.forEach(dep => console.log("  - " + chalk.red(dep)));
+    console.log(chalk.yellow('• Missing:'));
+    missingNormal.forEach(dep => console.log('  - ' + chalk.red(dep)));
   }
 
   if (missingTailwind) {
-    console.log(chalk.yellow("\n• Missing Tailwind:"));
-    console.log("  - " + chalk.red("tailwindcss"));
+    console.log(chalk.yellow('\n• Missing Tailwind:'));
+    console.log('  - ' + chalk.red('tailwindcss'));
   }
 
-  console.log(
-    chalk.cyan("\nInstall command:\n") +
-    chalk.green(finalCommand) +
-    "\n"
-  );
+  console.log(chalk.cyan('\nInstall command:\n') + chalk.green(finalCommand) + '\n');
 
   // ───────────────────────────────────────────────
   // Ask confirmation
   // ───────────────────────────────────────────────
   const { confirm } = await inquirer.prompt([
     {
-      type: "confirm",
-      name: "confirm",
-      message: "Install the missing dependencies?",
-      default: true
-    }
+      type: 'confirm',
+      name: 'confirm',
+      message: 'Install the missing dependencies?',
+      default: true,
+    },
   ]);
 
   if (!confirm) {
-    console.log(chalk.yellow("✖ Dependencies were not installed."));
+    console.log(chalk.yellow('✖ Dependencies were not installed.'));
     return;
   }
 
   // Execute command
   try {
-    console.log(chalk.cyan("\nInstalling...\n"));
-    execSync(finalCommand, { stdio: "inherit" });
-    console.log(chalk.green("\n✔ Dependencies installed successfully.\n"));
+    console.log(chalk.cyan('\nInstalling...\n'));
+    execSync(finalCommand, { stdio: 'inherit' });
+    console.log(chalk.green('\n✔ Dependencies installed successfully.\n'));
   } catch (err) {
-    console.log(chalk.red("\n✖ Failed to install dependencies.\n"));
+    console.log(chalk.red('\n✖ Failed to install dependencies.\n'));
   }
 };

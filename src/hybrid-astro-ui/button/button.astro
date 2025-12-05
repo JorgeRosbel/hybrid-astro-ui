@@ -1,0 +1,88 @@
+---
+import { cls } from '@/src/lib/utils';
+import { type HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<any> {
+  class?: string;
+  variant?: 'default' | 'secondary' | 'outline' | 'ghost' | 'link';
+  size?: 'sm' | 'md' | 'lg' | 'icon';
+  disabled?: boolean;
+  as?: 'a' | 'button' | 'div' | 'span' | 'h1' | 'h2' | 'article'; // <- tags permitidas
+}
+
+const {
+  class: clasName,
+  variant = 'default',
+  size = 'md',
+  disabled = false,
+  as,
+  href,
+  target,
+  ...rest
+} = Astro.props as Props;
+
+// Estilos unificados
+const mergedClas = cls(
+  'inline-flex cursor-pointer disabled:opacity-30 items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-colors',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+  'disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200',
+
+  variant === 'default' && 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+  variant === 'secondary' &&
+    'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+  variant === 'outline' &&
+    'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+  variant === 'ghost' && 'hover:bg-accent hover:text-accent-foreground',
+  variant === 'link' && 'text-primary underline-offset-4 hover:underline',
+
+  size === 'sm' && 'h-9 rounded-md px-3 text-sm',
+  size === 'md' && 'h-10 px-4 py-2',
+  size === 'lg' && 'h-11 rounded-md px-8 text-lg',
+  size === 'icon' && 'h-10 w-10',
+
+  clasName
+);
+---
+
+{
+  !as && (
+    <button
+      {...rest}
+      disabled={disabled}
+      aria-disabled={disabled ? 'true' : undefined}
+      class={mergedClas}
+    >
+      <slot />
+    </button>
+  )
+}
+
+{
+  as === 'a' && (
+    <a
+      {...rest}
+      target={target}
+      href={href}
+      aria-disabled={disabled ? 'true' : undefined}
+      class={mergedClas}
+    >
+      <slot />
+    </a>
+  )
+}
+
+{
+  as === 'div' && (
+    <div {...rest} aria-disabled={disabled ? 'true' : undefined} class={mergedClas}>
+      <slot />
+    </div>
+  )
+}
+
+{
+  as === 'span' && (
+    <span {...rest} aria-disabled={disabled ? 'true' : undefined} class={mergedClas}>
+      <slot />
+    </span>
+  )
+}

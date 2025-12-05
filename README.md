@@ -1,4 +1,4 @@
-# 🌟 UI Blocks for Astro
+# 🌟 Hybrid-Astro-UI
 
 **Beautiful, accessible, and customizable components for Astro — built with a hybrid model inspired by shadcn/ui.**
 
@@ -6,9 +6,9 @@
 
 ---
 
-## ✨ Why UI Blocks?
+## ✨ Why Hybrid-Astro-UI?
 
-UI Blocks provides a carefully crafted collection of high-quality components designed specifically for Astro.
+Hybrid provides a carefully crafted collection of high-quality components designed specifically for Astro.
 Our hybrid approach combines **zero-JavaScript Astro components** for maximum performance with **progressively enhanced Web Components** only where interactivity is essential.
 
 Perfect for teams and developers who value **design consistency, accessibility, and performance**—without compromising functionality.
@@ -47,7 +47,7 @@ When interactivity is needed, it's handled through small, lightweight Web Compon
 ## 📚 Documentation
 
 Explore the full documentation, examples, and component library:
-**[ui-blocks.dev](https://ui-blocks.dev)**
+**[hybrid-astro-ui.dev](https://hybrid-astro-ui.dev)**
 (Replace with your real documentation URL.)
 
 ---

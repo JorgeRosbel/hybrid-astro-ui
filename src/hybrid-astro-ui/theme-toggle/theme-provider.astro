@@ -1,0 +1,30 @@
+---
+// ThemeProvider.astro
+---
+
+<script is:inline>
+  const getSystemTheme = () => {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  const savedTheme = localStorage.getItem('theme');
+  const theme = savedTheme || getSystemTheme();
+
+  document.documentElement.classList.add(theme);
+</script>
+
+<script>
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+  const handleThemeChange = (e: MediaQueryListEvent) => {
+    const savedTheme = localStorage.getItem('theme');
+
+    if (!savedTheme) {
+      const newTheme = e.matches ? 'dark' : 'light';
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(newTheme);
+    }
+  };
+
+  mediaQuery.addEventListener('change', handleThemeChange);
+</script>

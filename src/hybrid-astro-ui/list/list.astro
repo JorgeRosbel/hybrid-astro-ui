@@ -1,0 +1,13 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<ul class={cls('text-foreground list-none! grid gird-cols-1 palce-items-center gap-2', className)}>
+  <slot />
+</ul>

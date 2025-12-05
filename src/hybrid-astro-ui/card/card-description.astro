@@ -1,0 +1,13 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<div class={cls('text-foreground/70 text-[0.9rem]', className)}>
+  <slot />
+</div>

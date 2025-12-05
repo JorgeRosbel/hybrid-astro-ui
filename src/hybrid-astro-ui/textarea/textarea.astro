@@ -1,0 +1,19 @@
+---
+import { cls } from '@/src/lib/utils';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'textarea'> {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<textarea
+  rows={rest.rows || '5'}
+  class={cls(
+    `outline-none prose-input:bg-transparent border px-4 py-1 focus:border-ring/60 w-full bg-muted rounded-[0.6rem] transition-all duration-200
+        shadow-ring/20 focus:shadow-md focus:shadow-ring/10 disabled:opacity-70 disabled:cursor-not-allowed`,
+    className
+  )}
+  {...rest}></textarea>

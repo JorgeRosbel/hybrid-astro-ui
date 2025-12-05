@@ -6,18 +6,16 @@ import { checkTsConfig } from '@/utils/check_tsconfig';
 import { folderExists } from '@/utils/folder_exists';
 
 async function loadComponentFiles(componentPath: string) {
-  // Leer todos los nombres de archivos dentro del directorio
   const files = await readdir(componentPath);
 
-  // Leer el contenido de cada archivo y devolver objeto con filename + file_content
   const result = await Promise.all(
-    files.map(async (filename) => {
+    files.map(async filename => {
       const fullPath = join(componentPath, filename);
-      const file_content = await readFile(fullPath, "utf-8");
+      const file_content = await readFile(fullPath, 'utf-8');
 
       return {
-        filename,      // ej: "button.astro" (con extensión)
-        file_content,  // contenido del archivo
+        filename,
+        file_content,
       };
     })
   );
@@ -25,64 +23,59 @@ async function loadComponentFiles(componentPath: string) {
   return result;
 }
 
-
 const creation_workflow = async (component: string) => {
-
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
-  const componentPath = join(__dirname, 'ui-elements', component);
+  const componentPath = join(__dirname, 'hybrid-astro-ui', component);
 
   if (!folderExists(componentPath)) {
-    fail(`Component ${component} does not exist`)
-    process.exit(1)
+    fail(`Component ${component} does not exist`);
+    process.exit(1);
   }
 
+  const componentsPath = join(process.cwd(), 'src/components');
+  const uiElementsPath = join(process.cwd(), 'src/components', 'hybrid-astro-ui');
 
-  const componentsPath = join(process.cwd(), "src/components")
-  const uiElementsPath = join(process.cwd(), "src/components", "ui-elements");
-
-  const componentFolderExists = await folderExists(componentsPath)
-  const uiElementsFolderExists = await folderExists(uiElementsPath)
+  const componentFolderExists = await folderExists(componentsPath);
+  const uiElementsFolderExists = await folderExists(uiElementsPath);
 
   if (!componentFolderExists) {
-    await mkdir(componentsPath )
+    await mkdir(componentsPath);
   }
 
   if (!uiElementsFolderExists) {
-    await mkdir(uiElementsPath)
+    await mkdir(uiElementsPath);
   }
 
   const files = await loadComponentFiles(componentPath);
 
-  if((await folderExists(join(uiElementsPath, component))) ) {
-    fail(`This component: ${component} already exists inside ./src/components/ui-elements/. Duplicate components are not allowed.`);
-    process.exit(1)
+  if (await folderExists(join(uiElementsPath, component))) {
+    fail(
+      `This component: ${component} already exists inside ./src/components/hybrid-astro-ui/. Duplicate components are not allowed.`
+    );
+    process.exit(1);
   }
 
-  await mkdir(join(uiElementsPath, component))
+  await mkdir(join(uiElementsPath, component));
 
   await Promise.all(
-    files.map(file =>
-      writeFile(join(uiElementsPath, component ,file.filename), file.file_content)
-    ))
+    files.map(file => writeFile(join(uiElementsPath, component, file.filename), file.file_content))
+  );
 
-  created(component)
-
-}
+  created(component);
+};
 
 export const add = async () => {
   try {
+    await checkTsConfig();
+    const selected_components = process.argv.slice(3, process.argv.length);
 
-    await checkTsConfig()
-    const selected_components = process.argv.slice(3, process.argv.length)
-  
     if (!selected_components) {
       fail('Missing component name!');
       process.exit(1);
     }
 
-    await Promise.all(selected_components.map( component => creation_workflow(component) ))
-
+    await Promise.all(selected_components.map(component => creation_workflow(component)));
   } catch (error) {
     fail(error as string);
     process.exit(1);

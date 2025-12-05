@@ -1,10 +1,15 @@
 import { program } from 'commander';
 import { add } from '@/commands/add';
+import { init } from '@/commands/init';
 
 program.name('ui-elements');
 
 program.command('add').action(() => {
   add();
+});
+
+program.command('init').action(() => {
+  init();
 });
 
 process.on('unhandledRejection', error => {

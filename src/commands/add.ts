@@ -1,47 +1,87 @@
-import { mkdir, writeFile } from 'fs/promises';
-import fs from 'fs';
+import { mkdir, writeFile, readdir, readFile } from 'fs/promises';
 import { join, dirname } from 'path';
 import { created, fail } from '@/utils/logs';
 import { fileURLToPath } from 'url';
+import { checkTsConfig } from '@/utils/check_tsconfig';
+import { folderExists } from '@/utils/folder_exists';
+
+async function loadComponentFiles(componentPath: string) {
+  // Leer todos los nombres de archivos dentro del directorio
+  const files = await readdir(componentPath);
+
+  // Leer el contenido de cada archivo y devolver objeto con filename + file_content
+  const result = await Promise.all(
+    files.map(async (filename) => {
+      const fullPath = join(componentPath, filename);
+      const file_content = await readFile(fullPath, "utf-8");
+
+      return {
+        filename,      // ej: "button.astro" (con extensión)
+        file_content,  // contenido del archivo
+      };
+    })
+  );
+
+  return result;
+}
+
+
+const creation_workflow = async (component: string) => {
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  const componentPath = join(__dirname, 'ui-elements', component);
+
+  if (!folderExists(componentPath)) {
+    fail(`Component ${component} does not exist`)
+    process.exit(1)
+  }
+
+
+  const componentsPath = join(process.cwd(), "src/components")
+  const uiElementsPath = join(process.cwd(), "src/components", "ui-elements");
+
+  const componentFolderExists = await folderExists(componentsPath)
+  const uiElementsFolderExists = await folderExists(uiElementsPath)
+
+  if (!componentFolderExists) {
+    await mkdir(componentsPath )
+  }
+
+  if (!uiElementsFolderExists) {
+    await mkdir(uiElementsPath)
+  }
+
+  const files = await loadComponentFiles(componentPath);
+
+  if((await folderExists(join(uiElementsPath, component))) ) {
+    fail(`This component: ${component} already exists inside ./src/components/ui-elements/. Duplicate components are not allowed.`);
+    process.exit(1)
+  }
+
+  await mkdir(join(uiElementsPath, component))
+
+  await Promise.all(
+    files.map(file =>
+      writeFile(join(uiElementsPath, component ,file.filename), file.file_content)
+    ))
+
+  created(component)
+
+}
 
 export const add = async () => {
   try {
-    const name = process.argv[3];
 
-    if (!name) {
+    await checkTsConfig()
+    const selected_components = process.argv.slice(3, process.argv.length)
+  
+    if (!selected_components) {
       fail('Missing component name!');
       process.exit(1);
     }
 
-    // Esto busca dentro del CLI direcmante
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
-    const componentPath = join(__dirname, 'ui-elements', name);
-
-    
-    if(fs.existsSync(componentPath)){
-      console.log(`Existe el compontent: ${name}`)
-    }else{
-      fail(`Component ${name} does not exist`)
-
-    }
-
-    // const content = fs.readFileSync(componentPath, 'utf-8');
-
-    // if (!content) {
-    //   fail('Invalid component name');
-    //   process.exit(1);
-    // }
-
-    // const dir = join(process.cwd(), 'src/generated');
-
-    // if (!fs.existsSync(dir)) {
-    //   await mkdir(dir);
-    // }
-
-    // await writeFile(join(dir, `${name}.astro`), content);
-
-    // created(name);
+    await Promise.all(selected_components.map( component => creation_workflow(component) ))
 
   } catch (error) {
     fail(error as string);

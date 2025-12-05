@@ -3,7 +3,7 @@ import boxen from 'boxen';
 
 export const created = (name: string) => {
   console.log(
-    boxen(chalk.green(`🌕 Successfully added: ${chalk.magenta(`${name}.astro`)} component 🌕`), {
+    boxen(chalk.green(`🌕 Successfully added: ${chalk.magenta(`${name}`)} component 🌕`), {
       padding: 1,
       borderColor: 'magenta',
     })

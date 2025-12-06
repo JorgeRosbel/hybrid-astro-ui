@@ -1,8 +1,7 @@
-import { folderExists } from "./folder_exists"
-import { join } from "path"
-import { writeFile, mkdir, readFile } from "fs/promises"
-import chalk from "chalk"
-
+import { folderExists } from './folder_exists';
+import { join } from 'path';
+import { writeFile, mkdir, readFile } from 'fs/promises';
+import chalk from 'chalk';
 
 const globals_css = `
 @import "tailwindcss";
@@ -30,13 +29,16 @@ const globals_css = `
   --ring: oklch(52% 0.18 250);
 
   --radius: 0.625rem;
+  --destructive: oklch(62% 0.24 22);         
+  --destructive-foreground: oklch(99% 0.005 22);   
+}
 }
 
 .dark {
   --background: oklch(13% 0.01 280);
   --foreground: oklch(96% 0.008 280);
 
-  --primary: oklch(68% 0.19 250);
+  --primary: oklch(60% 0.19 250);
   --primary-foreground: oklch(13% 0.01 250);
 
   --secondary: oklch(22% 0.015 260);
@@ -51,6 +53,9 @@ const globals_css = `
   --border: oklch(28% 0.015 270);
   --input: oklch(26% 0.015 270);
   --ring: oklch(68% 0.19 250);
+
+  --destructive: oklch(45% 0.20 22);
+  --destructive-foreground: oklch(96% 0.005 22);
 }
 
 @theme inline {
@@ -77,6 +82,9 @@ const globals_css = `
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 }
 
 @layer base {
@@ -87,11 +95,11 @@ const globals_css = `
     @apply bg-background text-foreground;
   }
 }
-`
+`;
 
 export const addGlobalsCss = async () => {
-  const stylesFolderPath = join(process.cwd(), "src/styles");
-  const globalsCssPath = join(stylesFolderPath, "global.css");
+  const stylesFolderPath = join(process.cwd(), 'src/styles');
+  const globalsCssPath = join(stylesFolderPath, 'global.css');
 
   // ───────────────────────────────────────────────
   // 1. Ensure that src/styles exists
@@ -99,17 +107,17 @@ export const addGlobalsCss = async () => {
   const stylesExists = await folderExists(stylesFolderPath);
 
   if (!stylesExists) {
-    await mkdir(stylesFolderPath)
+    await mkdir(stylesFolderPath);
   }
 
   // ───────────────────────────────────────────────
   // 2. Read existing globals.css or create it
   // ───────────────────────────────────────────────
-  let existingContent = "";
+  let existingContent = '';
   const fileExists = await folderExists(globalsCssPath); // detects file too
 
   if (fileExists) {
-    existingContent = await readFile(globalsCssPath, "utf-8");
+    existingContent = await readFile(globalsCssPath, 'utf-8');
   }
 
   // Build final content: keep user content, add ours below
@@ -121,10 +129,7 @@ export const addGlobalsCss = async () => {
   // ───────────────────────────────────────────────
   // 3. Write file
   // ───────────────────────────────────────────────
-  await writeFile(globalsCssPath, finalContent, "utf-8");
+  await writeFile(globalsCssPath, finalContent, 'utf-8');
 
-  console.log(
-    chalk.green("✔ Successfully updated ") +
-      chalk.magenta("globals.css")
-  );
+  console.log(chalk.green('✔ Successfully updated ') + chalk.magenta('globals.css'));
 };

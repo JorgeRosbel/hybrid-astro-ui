@@ -6,14 +6,15 @@ interface Props extends HTMLAttributes<'input'> {
   class?: string;
 }
 
-const { class: className, type, ...rest } = Astro.props;
+const { class: className, type, ...rest } = Astro.props as Props;
 ---
 
 <input
   type={type}
+  required
   class={cls(
-    `outline-none prose-input:bg-transparent border px-4 py-1 focus:border-ring/60 w-full bg-muted rounded-[0.6rem] transition-all duration-200
-        shadow-ring/20 focus:shadow-md focus:shadow-ring/10 disabled:opacity-70 disabled:cursor-not-allowed`,
+    `outline-none prose-input:bg-transparent border px-3 py-1 focus:border-ring/60 w-full bg-muted rounded-[0.4rem] transition-all duration-200
+        shadow-ring/20 focus:shadow-md focus:shadow-ring/10 disabled:opacity-70 disabled:cursor-not-allowed md:text-sm`,
 
     type === 'file' &&
       `cursor-pointer text-sm text-muted-foreground

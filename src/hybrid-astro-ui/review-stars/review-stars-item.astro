@@ -1,0 +1,66 @@
+---
+import Star from '@lucide/astro/icons/star';
+import { cls } from '@/src/lib/utils';
+
+const variants = {
+  yellow: 'text-yellow-400 bg-yellow-400',
+  amber: 'text-amber-400 bg-amber-400',
+  orange: 'text-orange-400 bg-orange-400',
+  green: 'text-green-400 bg-green-400',
+  emerald: 'text-emerald-400 bg-emerald-400',
+  blue: 'text-blue-400 bg-blue-400',
+  sky: 'text-sky-400 bg-sky-400',
+  violet: 'text-violet-400 bg-violet-400',
+  rose: 'text-rose-400 bg-rose-400',
+  red: 'text-red-400 bg-red-400',
+};
+
+interface Props {
+  stars: number;
+  percent: number;
+  variant?: keyof typeof variants;
+}
+
+const { stars, percent, variant = 'yellow' } = Astro.props as Props;
+---
+
+<li
+  class="w-full flex items-center justify-between gap-3"
+  aria-label={`${stars} stars: ${percent}%`}
+>
+  <div class="flex items-center w-[10%] min-w-20">
+    <span class="sr-only">{stars} out of 5 stars</span>
+    {
+      Array.from({ length: 5 }, (_, i) => (
+        <Star
+          aria-hidden="true"
+          class={cls(
+            'text-muted-foreground/20 w-4 h-7',
+            i < stars && variants[variant].split(' ')[0]
+          )}
+          fill="currentColor"
+          stroke="none"
+        />
+      ))
+    }
+  </div>
+
+  <div
+    class="bg-muted-foreground/20 w-[75%] h-2 rounded-full relative overflow-hidden"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow={percent}
+    aria-label={`${percent}% of reviews`}
+  >
+    <div
+      style={{ width: `${percent}%` }}
+      class={cls('absolute h-2', variants[variant].split(' ')[1])}
+    >
+    </div>
+  </div>
+
+  <span class="w-[5%] text-end tabular-nums font-mono text-sm">
+    {percent}%
+  </span>
+</li>

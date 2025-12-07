@@ -1,0 +1,44 @@
+---
+import { cls } from '@/src/lib/utils';
+
+import ReviewStarsItem from './review-stars-item.astro';
+
+const variants = {
+  yellow: 'text-yellow-400 bg-yellow-400',
+  amber: 'text-amber-400 bg-amber-400',
+  orange: 'text-orange-400 bg-orange-400',
+  green: 'text-green-400 bg-green-400',
+  emerald: 'text-emerald-400 bg-emerald-400',
+  blue: 'text-blue-400 bg-blue-400',
+  sky: 'text-sky-400 bg-sky-400',
+  violet: 'text-violet-400 bg-violet-400',
+  rose: 'text-rose-400 bg-rose-400',
+  red: 'text-red-400 bg-red-400',
+};
+
+interface ReviewStarsItemData {
+  stars: number;
+  percent: number;
+}
+
+interface Props {
+  class?: string;
+  items: ReviewStarsItemData[];
+  variant?: keyof typeof variants;
+}
+
+const { class: className, items, variant = 'yellow' } = Astro.props as Props;
+
+const orderedItems = [...items].sort((a, b) => b.stars - a.stars);
+---
+
+<ul
+  data-slot="review-stars"
+  class={cls('text-foreground/70 text-[0.9rem] w-full p-4 not-prose', className)}
+>
+  {
+    orderedItems.map(item => (
+      <ReviewStarsItem variant={variant} stars={item.stars} percent={item.percent} />
+    ))
+  }
+</ul>

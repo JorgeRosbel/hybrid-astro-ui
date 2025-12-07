@@ -8,6 +8,6 @@ interface Props {
 const { class: className } = Astro.props as Props;
 ---
 
-<div class={cls('shrink-0 mt-[0.35em] max-w-3 max-h-3', className)}>
+<div class={cls('shrink-0 mt-[0.35em] max-w-3 max-h-3 [&_svg]:w-full [&_svg]:h-full', className)}>
   <slot />
 </div>

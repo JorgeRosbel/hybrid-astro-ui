@@ -15,6 +15,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 🔗 Attach tag to branch so pnpm git checks pass
+        run: |
+          # Ensure we have full history (safe when fetch-depth may be shallow)
+          git fetch --prune --unshallow || true
+          # Create or reset a local branch named "main" pointing at the current commit (the tag)
+          git checkout -B main
+
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -36,6 +43,6 @@ jobs:
         run: pnpm run build
 
       - name: 🚀 Publish to npm
-        run: pnpm publish --access public --no-git-checks  
+        run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

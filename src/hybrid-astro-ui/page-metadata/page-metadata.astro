@@ -57,7 +57,14 @@ interface Props {
   preloadFonts?: { href: string; type: FontMimeType }[];
   loadRSS?: boolean;
   ogType: OgType;
-  favicons: { rel: FaviconRel; type: FaviconMimeType; href: string }[];
+  favicons: {
+    rel: FaviconRel;
+    type: FaviconMimeType;
+    href: string;
+    sizes?: string;
+    color?: string;
+  }[];
+  googleSiteVerification?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -71,6 +78,7 @@ const {
   image,
   loadRSS,
   favicons,
+  googleSiteVerification,
 } = Astro.props as Props;
 ---
 
@@ -79,9 +87,18 @@ const {
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <>
-  {favicons.map(icon => <link rel={icon.rel} type={icon.type} href={icon.href} />)}
+  {
+    favicons?.map(icon => (
+      <link
+        rel={icon.rel}
+        href={icon.href}
+        type={icon.type}
+        sizes={icon.sizes}
+        color={icon.color}
+      />
+    ))
+  }
 </>
-
 <link rel="sitemap" href="/sitemap-index.xml" />
 {
   loadRSS && (
@@ -132,5 +149,11 @@ const {
 
 <!-- Dark mode -->
 <meta name="theme-color" content="#1a1a2e" media="(prefers-color-scheme: dark)" />
+
+{
+  googleSiteVerification && (
+    <meta content={googleSiteVerification} name="google-site-verification" />
+  )
+}
 
 {enableClientRouter && <ClientRouter />}

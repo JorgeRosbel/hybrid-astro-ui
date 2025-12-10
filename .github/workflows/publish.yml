@@ -8,11 +8,11 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    environment: publish   # <-- el environment que configuraste en npm
+    environment: publish  
 
     permissions:
       contents: read
-      id-token: write      # <-- necesario para Trusted Publishing/OIDC
+      id-token: write       
 
     steps:
       - name: 🔽 Checkout repository
@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org/"
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
@@ -35,5 +35,5 @@ jobs:
       - name: 🛠️ Build
         run: pnpm run build
 
-      - name: 🚀 Publish to npm (Trusted Publishing)
-        run: npm publish --provenance --access public
+      - name: 🚀 Publish to npm
+        run: npm publish --provenance --access public  # 👈 OBLIGATORIO: npm, no pnpm

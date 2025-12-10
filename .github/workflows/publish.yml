@@ -6,22 +6,46 @@ on:
       - 'v*.*.*'
 
 permissions:
-  id-token: write  
+  id-token: write
   contents: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: publish   # 👈 OBLIGATORIO para Trusted Publishing
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      # ---------------------------
+      # Setup Node + pnpm
+      # ---------------------------
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          version: 9
 
-      - name: Update npm
-        run: npm install -g npm@latest
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm publish
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+
+      # ---------------------------
+      # Install dependencies
+      # ---------------------------
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # ---------------------------
+      # Build the package
+      # ---------------------------
+      - name: Build
+        run: pnpm run build
+
+      # ---------------------------
+      # Publish using Trusted Publishing (OIDC)
+      # ---------------------------
+      - name: Publish to npm
+        run: npm publish --provenance --access public

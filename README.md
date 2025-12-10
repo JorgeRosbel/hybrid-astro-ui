@@ -2,8 +2,6 @@
 
 **Beautiful, accessible, and customizable components for Astro — built with a hybrid model inspired by shadcn/ui.**
 
-> **Now in Beta**
-
 ---
 
 ## ✨ Why Hybrid Astro UI?

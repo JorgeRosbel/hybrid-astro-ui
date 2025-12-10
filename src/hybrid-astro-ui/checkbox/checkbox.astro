@@ -1,0 +1,88 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { cls } from '@/src/lib/utils';
+
+interface Props extends Omit<HTMLAttributes<'input'>, 'type'> {
+  class?: string;
+  iconColor?: string;
+}
+
+const { class: className, iconColor, ...rest } = Astro.props as Props;
+---
+
+<style>
+  /* ---------- CIRCLE ---------- */
+  .animate-circle-x7f3a {
+    stroke-dasharray: 64;
+    stroke-dashoffset: 64;
+    animation: dashCircle-x7f3a 0.4s ease forwards;
+  }
+
+  @keyframes dashCircle-x7f3a {
+    from {
+      stroke-dashoffset: 64;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* ---------- CHECK ---------- */
+  .animate-check-x7f3a {
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    animation: dashCheck-x7f3a 0.3s ease forwards;
+    animation-delay: 0.25s;
+  }
+
+  @keyframes dashCheck-x7f3a {
+    from {
+      stroke-dashoffset: 20;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>
+
+<div class={cls('flex items-center gap-2 relative', rest.disabled && 'opacity-60', className)}>
+  <input
+    {...rest}
+    type="checkbox"
+    class="peer opacity-0 absolute w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
+  />
+
+  <svg
+    class="w-4 h-4 peer-checked:hidden transition flex items-center justify-center"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <rect x="4" y="4" width="18" height="18" rx="3"></rect>
+  </svg>
+
+  <svg
+    class={cls('w-4 h-4 hidden peer-checked:block text-primary', iconColor)}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <!-- <circle
+      cx="12"
+      cy="12"
+      r="9"
+      fill="none"
+      class="animate-circle-x7f3a"
+    /> -->
+
+    <rect x="4" y="4" width="18" height="18" rx="3"></rect>
+
+    <path
+      d="M6 12.5 10 16 18 8"
+      class="animate-check-x7f3a"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+</div>

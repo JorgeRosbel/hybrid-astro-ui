@@ -4,19 +4,21 @@ import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'label'> {
   class?: string;
+  disabled?: boolean;
 }
 
-const { class: className, ...rest } = Astro.props as Props;
+const { class: className, disabled, ...rest } = Astro.props as Props;
 ---
 
 <label
   data-slot="label"
   class={cls(
     `
-cursor-pointer text-sm not-prose select-none leading-none font-medium 
+cursor-pointer text-sm not-prose select-none leading-none font-medium  not-prose
 transition-opacity duration-200 
 [:has(+_input:disabled)]:opacity-50 [:has(+_input:disabled)]:cursor-not-allowed 
 `,
+    disabled && 'opacity-55 cursor-not-allowed',
     className
   )}
   {...rest}

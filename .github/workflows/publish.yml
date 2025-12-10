@@ -8,11 +8,11 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    environment: publish  
+    environment: publish   
 
     permissions:
       contents: read
-      id-token: write       
+      id-token: write      
 
     steps:
       - name: 🔽 Checkout repository
@@ -35,5 +35,5 @@ jobs:
       - name: 🛠️ Build
         run: pnpm run build
 
-      - name: 🚀 Publish to npm
-        run: npm publish --provenance --access public  # 👈 OBLIGATORIO: npm, no pnpm
+      - name: 🚀 Publish to npm (OIDC)
+        run: npm publish --provenance --access public

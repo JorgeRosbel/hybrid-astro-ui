@@ -7,23 +7,23 @@
     },
     {
       "from": "card-content.astro",
-      "to": "src/components/hybrid-astro-ui/card-content/card-content.astro"
+      "to": "src/components/hybrid-astro-ui/card/card-content.astro"
     },
     {
       "from": "card-description.astro",
-      "to": "src/components/hybrid-astro-ui/card-description/card-description.astro"
+      "to": "src/components/hybrid-astro-ui/card/card-description.astro"
     },
     {
       "from": "card-footer.astro",
-      "to": "src/components/hybrid-astro-ui/card-footer/card-footer.astro"
+      "to": "src/components/hybrid-astro-ui/card/card-footer.astro"
     },
     {
       "from": "card-header.astro",
-      "to": "src/components/hybrid-astro-ui/card-header/card-header.astro"
+      "to": "src/components/hybrid-astro-ui/card/card-header.astro"
     },
     {
       "from": "card-title.astro",
-      "to": "src/components/hybrid-astro-ui/card-title/card-title.astro"
+      "to": "src/components/hybrid-astro-ui/card/card-title.astro"
     },
     {
       "from": "card.astro",

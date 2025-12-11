@@ -7,7 +7,7 @@
     },
     {
       "from": "field-title.astro",
-      "to": "src/components/hybrid-astro-ui/field-title/field-title.astro"
+      "to": "src/components/hybrid-astro-ui/form-field/field-title.astro"
     },
     {
       "from": "form-field.astro",

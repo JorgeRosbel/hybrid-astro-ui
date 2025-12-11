@@ -7,15 +7,15 @@
     },
     {
       "from": "list-item-content.astro",
-      "to": "src/components/hybrid-astro-ui/list-item-content/list-item-content.astro"
+      "to": "src/components/hybrid-astro-ui/list/list-item-content.astro"
     },
     {
       "from": "list-item-marker.astro",
-      "to": "src/components/hybrid-astro-ui/list-item-marker/list-item-marker.astro"
+      "to": "src/components/hybrid-astro-ui/list/list-item-marker.astro"
     },
     {
       "from": "list-item.astro",
-      "to": "src/components/hybrid-astro-ui/list-item/list-item.astro"
+      "to": "src/components/hybrid-astro-ui/list/list-item.astro"
     },
     {
       "from": "list.astro",

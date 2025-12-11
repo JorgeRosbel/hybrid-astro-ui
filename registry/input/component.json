@@ -1,0 +1,13 @@
+{
+  "name": "input",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/input/index.ts"
+    },
+    {
+      "from": "input.astro",
+      "to": "src/components/hybrid-astro-ui/input/input.astro"
+    }
+  ]
+}

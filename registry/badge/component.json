@@ -1,0 +1,13 @@
+{
+  "name": "badge",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/badge/index.ts"
+    },
+    {
+      "from": "badge.astro",
+      "to": "src/components/hybrid-astro-ui/badge/badge.astro"
+    }
+  ]
+}

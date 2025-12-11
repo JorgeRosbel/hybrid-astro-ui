@@ -1,69 +1,61 @@
-import { mkdir, writeFile, readdir, readFile } from 'fs/promises';
-import { join, dirname } from 'path';
+import { join } from 'path';
 import { created, fail } from '@/utils/logs';
-import { fileURLToPath } from 'url';
 import { checkTsConfig } from '@/utils/check_tsconfig';
 import { folderExists } from '@/utils/folder_exists';
+import fs from 'node:fs/promises';
+import ora from 'ora';
 
-async function loadComponentFiles(componentPath: string) {
-  const files = await readdir(componentPath);
+const REGISTRY_BASE =
+  'https://raw.githubusercontent.com/JorgeRosbel/hybrid-astro-ui/registry/registry';
 
-  const result = await Promise.all(
-    files.map(async filename => {
-      const fullPath = join(componentPath, filename);
-      const file_content = await readFile(fullPath, 'utf-8');
+async function addFromGitHub(name: string) {
+  try {
+    const uiElementsPath = join(process.cwd(), 'src/components', 'hybrid-astro-ui');
 
-      return {
-        filename,
-        file_content,
-      };
-    })
-  );
+    if (await folderExists(join(uiElementsPath, name))) {
+      fail(
+        `This component: ${name} already exists inside ./src/components/hybrid-astro-ui/. Duplicate components are not allowed.`
+      );
+      process.exit(1);
+    }
 
-  return result;
+    const jsonUrl = `${REGISTRY_BASE}/${name}/component.json`;
+
+    const spinner_loadjson = ora('Loading JSON component...').start();
+    const metaResp = await fetch(jsonUrl);
+    if (!metaResp.ok) throw new Error(`Not found: ${jsonUrl}`);
+    spinner_loadjson.succeed('JSON loaded successfully.');
+
+    const meta = await metaResp.json();
+
+    const spinner_installing = ora(`→ Installing component: ${meta.name}`).start();
+
+    for (const file of meta.files) {
+      const fileUrl = `${REGISTRY_BASE}/${name}/${file.from}`;
+      const destPath = file.to;
+
+      const fileResp = await fetch(fileUrl);
+
+      if (!fileResp.ok) {
+        throw new Error(`Error : ${fileUrl}`);
+      }
+
+      const content = await fileResp.text();
+
+      await fs.mkdir(destPath.split('/').slice(0, -1).join('/'), {
+        recursive: true,
+      });
+
+      await fs.writeFile(destPath, content);
+    }
+    spinner_installing.succeed('Installation completed successfully.');
+
+    created(name);
+  } catch (e) {
+    console.error(`❌ Error: ${e}`);
+    process.exit(1);
+  }
 }
-
-const creation_workflow = async (component: string) => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const componentPath = join(__dirname, 'hybrid-astro-ui', component);
-
-  if (!folderExists(componentPath)) {
-    fail(`Component ${component} does not exist`);
-    process.exit(1);
-  }
-
-  const componentsPath = join(process.cwd(), 'src/components');
-  const uiElementsPath = join(process.cwd(), 'src/components', 'hybrid-astro-ui');
-
-  const componentFolderExists = await folderExists(componentsPath);
-  const uiElementsFolderExists = await folderExists(uiElementsPath);
-
-  if (!componentFolderExists) {
-    await mkdir(componentsPath);
-  }
-
-  if (!uiElementsFolderExists) {
-    await mkdir(uiElementsPath);
-  }
-
-  const files = await loadComponentFiles(componentPath);
-
-  if (await folderExists(join(uiElementsPath, component))) {
-    fail(
-      `This component: ${component} already exists inside ./src/components/hybrid-astro-ui/. Duplicate components are not allowed.`
-    );
-    process.exit(1);
-  }
-
-  await mkdir(join(uiElementsPath, component));
-
-  await Promise.all(
-    files.map(file => writeFile(join(uiElementsPath, component, file.filename), file.file_content))
-  );
-
-  created(component);
-};
 
 export const add = async () => {
   try {
@@ -75,7 +67,7 @@ export const add = async () => {
       process.exit(1);
     }
 
-    await Promise.all(selected_components.map(component => creation_workflow(component)));
+    await Promise.all(selected_components.map(component => addFromGitHub(component)));
   } catch (error) {
     fail(error as string);
     process.exit(1);

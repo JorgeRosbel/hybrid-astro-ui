@@ -1,6 +1,6 @@
 {
   "name": "hybrid-astro-ui",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -20,7 +20,8 @@
     "test:coverage": "vitest --coverage",
     "test:v": "vitest --reporter verbose",
     "push": "git add . && gitzen commit -y && git push && pnpm run build:dev",
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "build:registry": "npx tsx scripts/buildJSONComponent.ts"
   },
   "lint-staged": {
     "*.{js,ts,astro}": [
@@ -57,6 +58,7 @@
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
+    "ts-node": "^10.9.2",
     "tsup": "^8.5.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
@@ -68,6 +70,7 @@
     "commander": "^12.1.0",
     "figlet": "^1.8.2",
     "gradient-string": "^3.0.0",
-    "inquirer": "^12.7.0"
+    "inquirer": "^12.7.0",
+    "ora": "^9.0.0"
   }
 }

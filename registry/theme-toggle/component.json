@@ -1,0 +1,17 @@
+{
+  "name": "theme-toggle",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/theme-toggle/index.ts"
+    },
+    {
+      "from": "theme-provider.astro",
+      "to": "src/components/hybrid-astro-ui/theme-toggle/theme-provider.astro"
+    },
+    {
+      "from": "theme-toggle.astro",
+      "to": "src/components/hybrid-astro-ui/theme-toggle/theme-toggle.astro"
+    }
+  ]
+}

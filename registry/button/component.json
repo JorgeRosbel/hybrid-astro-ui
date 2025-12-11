@@ -1,0 +1,13 @@
+{
+  "name": "button",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/button/index.ts"
+    },
+    {
+      "from": "button.astro",
+      "to": "src/components/hybrid-astro-ui/button/button.astro"
+    }
+  ]
+}

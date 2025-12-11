@@ -1,0 +1,25 @@
+{
+  "name": "pagination",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/pagination-controls/index.ts"
+    },
+    {
+      "from": "pagination-button.astro",
+      "to": "src/components/hybrid-astro-ui/pagination-controls/pagination-button.astro"
+    },
+    {
+      "from": "pagination-index-container.astro",
+      "to": "src/components/hybrid-astro-ui/pagination-controls/pagination-index-container.astro"
+    },
+    {
+      "from": "pagination-index.astro",
+      "to": "src/components/hybrid-astro-ui/pagination-controls/pagination-index.astro"
+    },
+    {
+      "from": "pagination.astro",
+      "to": "src/components/hybrid-astro-ui/pagination-controls/pagination.astro"
+    }
+  ]
+}

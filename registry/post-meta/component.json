@@ -1,0 +1,13 @@
+{
+  "name": "post-meta",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/post-meta/index.ts"
+    },
+    {
+      "from": "post-meta.astro",
+      "to": "src/components/hybrid-astro-ui/post-meta/post-meta.astro"
+    }
+  ]
+}

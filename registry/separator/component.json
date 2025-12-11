@@ -1,0 +1,13 @@
+{
+  "name": "separator",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/separator/index.ts"
+    },
+    {
+      "from": "separator.astro",
+      "to": "src/components/hybrid-astro-ui/separator/separator.astro"
+    }
+  ]
+}

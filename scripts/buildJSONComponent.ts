@@ -44,7 +44,7 @@ export const buildJSONComponent = async () => {
         json_body.name = cleanName;
         json_body.files.push({
           from: `${cleanName}.astro`,
-          to: `src/components/hybrid-astro-ui/${cleanName}/${cleanName}.astro`,
+          to: `src/components/hybrid-astro-ui/${folder.name}/${cleanName}.astro`,
         });
       }
     }

@@ -1,0 +1,13 @@
+{
+  "name": "ai-button",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/ai-button/index.ts"
+    },
+    {
+      "from": "ai-button.astro",
+      "to": "src/components/hybrid-astro-ui/ai-button/ai-button.astro"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+---
+import { cls } from '@/src/lib/utils';
+
+export interface Props {
+  class?: string;
+  variant?: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
+  size?: 'sm' | 'md' | 'lg' | 'icon';
+  prompt: string;
+  provider: 'openai' | 'perplexity';
+}
+
+const {
+  class: className,
+  variant = 'default',
+  size = 'sm',
+  prompt,
+  provider,
+} = Astro.props as Props;
+
+const goTo =
+  provider === 'openai'
+    ? `https://chat.openai.com/?q=${encodeURIComponent(prompt)}`
+    : `https://www.perplexity.ai/?q=${encodeURIComponent(prompt)}`;
+
+const mergedClass = cls(
+  'inline-flex w-max cursor-pointer disabled:opacity-30 items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-colors',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-invalid:border-destructive aria-invalid:border aria-invalid:bg-destructive/20 aria-invalid:text-destructive',
+  'disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200',
+
+  variant === 'default' && 'bg-primary text-white shadow hover:bg-primary/90',
+  variant === 'secondary' &&
+    'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+  variant === 'outline' &&
+    'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+  variant === 'ghost' && 'hover:bg-accent hover:text-accent-foreground',
+  variant === 'link' && 'text-primary underline-offset-4 hover:underline',
+  variant === 'destructive' && 'bg-destructive text-destructive-foreground',
+
+  size === 'sm' && 'h-9 rounded-md px-3 text-sm',
+  size === 'md' && 'h-10 px-4 py-2',
+  size === 'lg' && 'h-11 rounded-md px-8 text-lg',
+  size === 'icon' && 'h-10 w-10',
+
+  className
+);
+---
+
+<a rel="noopener noreferrer" href={goTo} target="_blank" class={mergedClass}>
+  <slot />
+</a>

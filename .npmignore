@@ -31,7 +31,8 @@ coverage/
 node_modules/
 docs/
 examples/
-
+registry/
+scripts/
 
 .DS_Store
 Thumbs.db

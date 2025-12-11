@@ -1,0 +1,7 @@
+{
+  "name": "animate-scroll",
+  "files": [
+    { "from": "animate-scroll.astro", "to": "src/components/hybrid-astro-ui/animate-scroll.astro" },
+    { "from": "index.ts", "to": "src/components/hybrid-astro-ui/animate-scroll.astro" }
+  ]
+}

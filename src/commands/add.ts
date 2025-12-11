@@ -5,65 +5,107 @@ import { fileURLToPath } from 'url';
 import { checkTsConfig } from '@/utils/check_tsconfig';
 import { folderExists } from '@/utils/folder_exists';
 
-async function loadComponentFiles(componentPath: string) {
-  const files = await readdir(componentPath);
+// async function loadComponentFiles(componentPath: string) {
+//   const files = await readdir(componentPath);
 
-  const result = await Promise.all(
-    files.map(async filename => {
-      const fullPath = join(componentPath, filename);
-      const file_content = await readFile(fullPath, 'utf-8');
+//   const result = await Promise.all(
+//     files.map(async filename => {
+//       const fullPath = join(componentPath, filename);
+//       const file_content = await readFile(fullPath, 'utf-8');
 
-      return {
-        filename,
-        file_content,
-      };
-    })
-  );
+//       return {
+//         filename,
+//         file_content,
+//       };
+//     })
+//   );
 
-  return result;
+//   return result;
+// }
+
+// const creation_workflow = async (component: string) => {
+//   const __filename = fileURLToPath(import.meta.url);
+//   const __dirname = dirname(__filename);
+//   const componentPath = join(__dirname, 'hybrid-astro-ui', component);
+
+//   if (!folderExists(componentPath)) {
+//     fail(`Component ${component} does not exist`);
+//     process.exit(1);
+//   }
+
+//   const componentsPath = join(process.cwd(), 'src/components');
+//   const uiElementsPath = join(process.cwd(), 'src/components', 'hybrid-astro-ui');
+
+//   const componentFolderExists = await folderExists(componentsPath);
+//   const uiElementsFolderExists = await folderExists(uiElementsPath);
+
+//   if (!componentFolderExists) {
+//     await mkdir(componentsPath);
+//   }
+
+//   if (!uiElementsFolderExists) {
+//     await mkdir(uiElementsPath);
+//   }
+
+//   const files = await loadComponentFiles(componentPath);
+
+//   if (await folderExists(join(uiElementsPath, component))) {
+//     fail(
+//       `This component: ${component} already exists inside ./src/components/hybrid-astro-ui/. Duplicate components are not allowed.`
+//     );
+//     process.exit(1);
+//   }
+
+//   await mkdir(join(uiElementsPath, component));
+
+//   await Promise.all(
+//     files.map(file => writeFile(join(uiElementsPath, component, file.filename), file.file_content))
+//   );
+
+//   created(component);
+// };
+import fs from 'node:fs/promises';
+
+const REGISTRY_BASE = 'https://raw.githubusercontent.com/JorgeRosbel/hybrid-astro-ui/main/registry';
+
+async function addFromGitHub(name: string) {
+  try {
+    const jsonUrl = `${REGISTRY_BASE}/${name}/component.json`;
+
+    // 1) Cargar JSON del componente
+    const metaResp = await fetch(jsonUrl);
+    if (!metaResp.ok) throw new Error(`No encontrado: ${jsonUrl}`);
+
+    const meta = await metaResp.json();
+
+    console.log(`→ Instalando componente: ${meta.name}`);
+
+    // 2) Descargar cada archivo
+    for (const file of meta.files) {
+      const fileUrl = `${REGISTRY_BASE}/${name}/${file.from}`;
+      const destPath = file.to;
+
+      const fileResp = await fetch(fileUrl);
+      if (!fileResp.ok) {
+        throw new Error(`Error descargando: ${fileUrl}`);
+      }
+
+      const content = await fileResp.text();
+
+      await fs.mkdir(destPath.split('/').slice(0, -1).join('/'), {
+        recursive: true,
+      });
+
+      await fs.writeFile(destPath, content);
+
+      console.log(`✔ Guardado: ${destPath}`);
+    }
+
+    console.log(`🎉 Componente '${name}' instalado correctamente.`);
+  } catch (e) {
+    console.error(`❌ Error: ${e}`);
+  }
 }
-
-const creation_workflow = async (component: string) => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const componentPath = join(__dirname, 'hybrid-astro-ui', component);
-
-  if (!folderExists(componentPath)) {
-    fail(`Component ${component} does not exist`);
-    process.exit(1);
-  }
-
-  const componentsPath = join(process.cwd(), 'src/components');
-  const uiElementsPath = join(process.cwd(), 'src/components', 'hybrid-astro-ui');
-
-  const componentFolderExists = await folderExists(componentsPath);
-  const uiElementsFolderExists = await folderExists(uiElementsPath);
-
-  if (!componentFolderExists) {
-    await mkdir(componentsPath);
-  }
-
-  if (!uiElementsFolderExists) {
-    await mkdir(uiElementsPath);
-  }
-
-  const files = await loadComponentFiles(componentPath);
-
-  if (await folderExists(join(uiElementsPath, component))) {
-    fail(
-      `This component: ${component} already exists inside ./src/components/hybrid-astro-ui/. Duplicate components are not allowed.`
-    );
-    process.exit(1);
-  }
-
-  await mkdir(join(uiElementsPath, component));
-
-  await Promise.all(
-    files.map(file => writeFile(join(uiElementsPath, component, file.filename), file.file_content))
-  );
-
-  created(component);
-};
 
 export const add = async () => {
   try {
@@ -75,7 +117,7 @@ export const add = async () => {
       process.exit(1);
     }
 
-    await Promise.all(selected_components.map(component => creation_workflow(component)));
+    await Promise.all(selected_components.map(component => addFromGitHub(component)));
   } catch (error) {
     fail(error as string);
     process.exit(1);

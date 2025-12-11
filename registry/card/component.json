@@ -1,0 +1,33 @@
+{
+  "name": "card",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/card/index.ts"
+    },
+    {
+      "from": "card-content.astro",
+      "to": "src/components/hybrid-astro-ui/card-content/card-content.astro"
+    },
+    {
+      "from": "card-description.astro",
+      "to": "src/components/hybrid-astro-ui/card-description/card-description.astro"
+    },
+    {
+      "from": "card-footer.astro",
+      "to": "src/components/hybrid-astro-ui/card-footer/card-footer.astro"
+    },
+    {
+      "from": "card-header.astro",
+      "to": "src/components/hybrid-astro-ui/card-header/card-header.astro"
+    },
+    {
+      "from": "card-title.astro",
+      "to": "src/components/hybrid-astro-ui/card-title/card-title.astro"
+    },
+    {
+      "from": "card.astro",
+      "to": "src/components/hybrid-astro-ui/card/card.astro"
+    }
+  ]
+}

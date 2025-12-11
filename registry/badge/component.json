@@ -1,7 +1,13 @@
 {
   "name": "badge",
   "files": [
-    { "from": "badge.astro", "to": "src/components/hybrid-astro-ui/badge/badge.astro" },
-    { "from": "index.ts", "to": "src/components/hybrid-astro-ui/badge/index.ts" }
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/badge/index.ts"
+    },
+    {
+      "from": "badge.astro",
+      "to": "src/components/hybrid-astro-ui/badge/badge.astro"
+    }
   ]
 }

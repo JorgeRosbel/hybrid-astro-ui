@@ -1,0 +1,13 @@
+{
+  "name": "page-metadata",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/page-metadata/index.ts"
+    },
+    {
+      "from": "page-metadata.astro",
+      "to": "src/components/hybrid-astro-ui/page-metadata/page-metadata.astro"
+    }
+  ]
+}

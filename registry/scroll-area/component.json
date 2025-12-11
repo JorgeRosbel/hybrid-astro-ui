@@ -1,0 +1,13 @@
+{
+  "name": "scroll-area",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/scroll-area/index.ts"
+    },
+    {
+      "from": "scroll-area.astro",
+      "to": "src/components/hybrid-astro-ui/scroll-area/scroll-area.astro"
+    }
+  ]
+}

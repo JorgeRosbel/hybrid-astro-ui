@@ -1,0 +1,17 @@
+{
+  "name": "form-field",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/form-field/index.ts"
+    },
+    {
+      "from": "field-title.astro",
+      "to": "src/components/hybrid-astro-ui/field-title/field-title.astro"
+    },
+    {
+      "from": "form-field.astro",
+      "to": "src/components/hybrid-astro-ui/form-field/form-field.astro"
+    }
+  ]
+}

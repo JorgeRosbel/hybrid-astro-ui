@@ -1,0 +1,17 @@
+{
+  "name": "review-stars",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/review-stars/index.ts"
+    },
+    {
+      "from": "review-stars-item.astro",
+      "to": "src/components/hybrid-astro-ui/review-stars-item/review-stars-item.astro"
+    },
+    {
+      "from": "review-stars.astro",
+      "to": "src/components/hybrid-astro-ui/review-stars/review-stars.astro"
+    }
+  ]
+}

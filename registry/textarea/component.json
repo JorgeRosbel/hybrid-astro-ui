@@ -1,0 +1,13 @@
+{
+  "name": "textarea",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/textarea/index.ts"
+    },
+    {
+      "from": "textarea.astro",
+      "to": "src/components/hybrid-astro-ui/textarea/textarea.astro"
+    }
+  ]
+}

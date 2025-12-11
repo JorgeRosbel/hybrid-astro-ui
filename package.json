@@ -20,7 +20,8 @@
     "test:coverage": "vitest --coverage",
     "test:v": "vitest --reporter verbose",
     "push": "git add . && gitzen commit -y && git push && pnpm run build:dev",
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "build:registry": "npx tsx scripts/buildJSONComponent.ts"
   },
   "lint-staged": {
     "*.{js,ts,astro}": [
@@ -57,6 +58,7 @@
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
+    "ts-node": "^10.9.2",
     "tsup": "^8.5.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",

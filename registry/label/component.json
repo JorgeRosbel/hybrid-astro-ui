@@ -1,0 +1,13 @@
+{
+  "name": "label",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/label/index.ts"
+    },
+    {
+      "from": "label.astro",
+      "to": "src/components/hybrid-astro-ui/label/label.astro"
+    }
+  ]
+}

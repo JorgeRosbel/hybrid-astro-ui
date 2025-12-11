@@ -1,0 +1,13 @@
+{
+  "name": "checkbox",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/checkbox/index.ts"
+    },
+    {
+      "from": "checkbox.astro",
+      "to": "src/components/hybrid-astro-ui/checkbox/checkbox.astro"
+    }
+  ]
+}

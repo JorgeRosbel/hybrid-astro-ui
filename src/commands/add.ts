@@ -5,8 +5,7 @@ import { folderExists } from '@/utils/folder_exists';
 import fs from 'node:fs/promises';
 import ora from 'ora';
 
-const REGISTRY_BASE =
-  'https://raw.githubusercontent.com/JorgeRosbel/hybrid-astro-ui/registry/registry';
+const REGISTRY_BASE = 'https://raw.githubusercontent.com/JorgeRosbel/hybrid-astro-ui/main/registry';
 
 async function addFromGitHub(name: string) {
   try {

@@ -1,0 +1,21 @@
+{
+  "name": "tooltip",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/tooltip/index.ts"
+    },
+    {
+      "from": "tooltip-content.astro",
+      "to": "src/components/hybrid-astro-ui/tooltip/tooltip-content.astro"
+    },
+    {
+      "from": "tooltip-trigger.astro",
+      "to": "src/components/hybrid-astro-ui/tooltip/tooltip-trigger.astro"
+    },
+    {
+      "from": "tooltip.astro",
+      "to": "src/components/hybrid-astro-ui/tooltip/tooltip.astro"
+    }
+  ]
+}

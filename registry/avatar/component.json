@@ -1,0 +1,7 @@
+{
+  "name": "avatar",
+  "files": [
+    { "from": "avatar.astro", "to": "src/components/hybrid-astro-ui/avatar/avatar.astro" },
+    { "from": "index.ts", "to": "src/components/hybrid-astro-ui/avatar/index.ts" }
+  ]
+}

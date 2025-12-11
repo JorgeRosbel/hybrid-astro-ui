@@ -87,6 +87,7 @@ async function addFromGitHub(name: string) {
       const destPath = file.to;
 
       const fileResp = await fetch(fileUrl);
+
       if (!fileResp.ok) {
         throw new Error(`Error descargando: ${fileUrl}`);
       }

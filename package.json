@@ -68,6 +68,7 @@
     "commander": "^12.1.0",
     "figlet": "^1.8.2",
     "gradient-string": "^3.0.0",
-    "inquirer": "^12.7.0"
+    "inquirer": "^12.7.0",
+    "ora": "^9.0.0"
   }
 }

@@ -3,6 +3,7 @@ import { created, fail } from '@/utils/logs';
 import { checkTsConfig } from '@/utils/check_tsconfig';
 import { folderExists } from '@/utils/folder_exists';
 import fs from 'node:fs/promises';
+import ora from 'ora';
 
 const REGISTRY_BASE =
   'https://raw.githubusercontent.com/JorgeRosbel/hybrid-astro-ui/registry/registry';
@@ -20,15 +21,15 @@ async function addFromGitHub(name: string) {
 
     const jsonUrl = `${REGISTRY_BASE}/${name}/component.json`;
 
-    // 1) Cargar JSON del componente
+    const spinner_loadjson = ora('Loading JSON component...').start();
     const metaResp = await fetch(jsonUrl);
-    if (!metaResp.ok) throw new Error(`No encontrado: ${jsonUrl}`);
+    if (!metaResp.ok) throw new Error(`Not found: ${jsonUrl}`);
+    spinner_loadjson.succeed('JSON loaded successfully.');
 
     const meta = await metaResp.json();
 
-    console.log(`→ Instalando componente: ${meta.name}`);
+    const spinner_installing = ora(`→ Installing component: ${meta.name}`).start();
 
-    // 2) Descargar cada archivo
     for (const file of meta.files) {
       const fileUrl = `${REGISTRY_BASE}/${name}/${file.from}`;
       const destPath = file.to;
@@ -46,13 +47,13 @@ async function addFromGitHub(name: string) {
       });
 
       await fs.writeFile(destPath, content);
-
-      console.log(`✔ Guardado: ${destPath}`);
     }
+    spinner_installing.succeed('Installation completed successfully.');
 
     created(name);
   } catch (e) {
     console.error(`❌ Error: ${e}`);
+    process.exit(1);
   }
 }
 

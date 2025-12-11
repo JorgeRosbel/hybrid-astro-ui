@@ -93,6 +93,17 @@ export function createCollectionPagination(options: PaginationOptions) {
 
     console.log(chalk.green('✔ Successfully added ') + chalk.magenta('lib/utils.ts'));
 
+    const decl = `/// <reference types="astro/client" />
+
+declare module '*.astro' {
+  import type { AstroComponentFactory } from 'astro';
+  const component: AstroComponentFactory;
+  export default component;
+}
+`;
+    await writeFile(join(process.cwd(), 'env.d.ts'), decl);
+    console.log(chalk.green('Created env.d.ts'));
+
     await addGlobalsCss();
 
     warnImportGlobalCss();

@@ -11,7 +11,7 @@ export const created = (name: string) => {
 };
 
 export const success = (content: string) => {
-  console.log(boxen(chalk.green(`🌟 ${content} 🌟`), { padding: 1, borderColor: 'green' }));
+  console.log(chalk.green(`🌟 ${content} 🌟`));
 };
 
 export const fail = (content: string) => {

@@ -1,0 +1,22 @@
+---
+import { cls } from '@/src/lib/utils';
+import { type HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+  class?: string;
+  text: string;
+}
+
+const { class: className, text, ...rest } = Astro.props as Props;
+---
+
+<a
+  {...rest}
+  class={cls(
+    'cursor-pointer text-primary underline underline-offset-5 w-max relative group',
+    className
+  )}
+>
+  {text}
+  <slot />
+</a>

@@ -33,7 +33,7 @@ export const buildJSONComponent = async () => {
     const files = await readdir(folderPath);
 
     const json_body: Schema = {
-      name: '',
+      name: folder.name,
       files: [{ from: 'index.ts', to: `src/components/hybrid-astro-ui/${folder.name}/index.ts` }],
     };
 
@@ -41,7 +41,6 @@ export const buildJSONComponent = async () => {
       const cleanName = file.split('.')[0];
 
       if (cleanName !== 'index' && cleanName !== 'component') {
-        json_body.name = cleanName;
         json_body.files.push({
           from: `${cleanName}.astro`,
           to: `src/components/hybrid-astro-ui/${folder.name}/${cleanName}.astro`,

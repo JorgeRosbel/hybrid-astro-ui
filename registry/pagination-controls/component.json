@@ -1,5 +1,5 @@
 {
-  "name": "pagination",
+  "name": "pagination-controls",
   "files": [
     {
       "from": "index.ts",

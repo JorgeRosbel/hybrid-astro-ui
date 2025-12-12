@@ -1,0 +1,37 @@
+---
+import { cls } from '@/src/lib/utils';
+import { type ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  imageData?: { image: ImageMetadata; alt: string };
+}
+
+const { class: className, imageData } = Astro.props as Props;
+---
+
+<span
+  class={cls(
+    `transition-all duration-200  absolute text-[0.8rem] translate-y-10 group-hover:translate-y-5 opacity-40 py-3 px-5 text-foreground
+        border rounded aspect-square bg-muted invisible group-hover:visible  group-hover:opacity-100 
+        z-50 left-1/2 -translate-x-1/2 top-full w-70 h-auto delay-500  space-y-3`,
+
+    className
+  )}
+>
+  {
+    imageData && (
+      <Image
+        class="object-cover w-60 h-60 mb-3 rounded"
+        width="300"
+        height="300"
+        src={imageData.image}
+        alt={imageData.alt}
+        decoding="async"
+        loading="lazy"
+      />
+    )
+  }
+  <slot />
+</span>

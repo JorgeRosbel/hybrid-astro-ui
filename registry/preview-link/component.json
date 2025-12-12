@@ -1,0 +1,17 @@
+{
+  "name": "preview-link",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/preview-link/index.ts"
+    },
+    {
+      "from": "preview-link-content.astro",
+      "to": "src/components/hybrid-astro-ui/preview-link/preview-link-content.astro"
+    },
+    {
+      "from": "preview-link-trigger.astro",
+      "to": "src/components/hybrid-astro-ui/preview-link/preview-link-trigger.astro"
+    }
+  ]
+}

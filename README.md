@@ -2,6 +2,12 @@
 
 **Beautiful, accessible, and customizable components for Astro — built with a hybrid model inspired by shadcn/ui.**
 
+![gitzen](./image/img.png)
+
+
+[![Downloads/week](https://img.shields.io/npm/dw/hybrid-astro-ui.svg)](https://www.npmjs.com/package/hybrid-astro-ui)
+[![License](https://img.shields.io/npm/l/hybrid-astro-ui.svg)](LICENSE)
+
 ---
 
 ## ✨ Why Hybrid Astro UI?

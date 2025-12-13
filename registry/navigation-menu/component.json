@@ -1,0 +1,25 @@
+{
+  "name": "navigation-menu",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/navigation-menu/index.ts"
+    },
+    {
+      "from": "navigation-menu-content.astro",
+      "to": "src/components/hybrid-astro-ui/navigation-menu/navigation-menu-content.astro"
+    },
+    {
+      "from": "navigation-menu-item.astro",
+      "to": "src/components/hybrid-astro-ui/navigation-menu/navigation-menu-item.astro"
+    },
+    {
+      "from": "navigation-menu-trigger.astro",
+      "to": "src/components/hybrid-astro-ui/navigation-menu/navigation-menu-trigger.astro"
+    },
+    {
+      "from": "navigation-menu.astro",
+      "to": "src/components/hybrid-astro-ui/navigation-menu/navigation-menu.astro"
+    }
+  ]
+}

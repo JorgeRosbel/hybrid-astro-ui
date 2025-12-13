@@ -1,0 +1,22 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<div
+  class={cls(
+    `
+    md:absolute static transition-all duration-200 mt-3 bg-muted  p-3 rounded-sm border md:opacity-40  md:w-max md:max-w-120 w-full gap-2 font-normal
+    md:invisible group-open:visible group-open:opacity-100   left-1/2 md:-translate-x-1/2 top-full grid grid-cols-1 overflow-hidden 
+    *:p-2 *:hover:bg-primary/5 *:transition-all *:duration-200 *:rounded-sm z-9999 md:*:-translate-x-50 *:group-open:translate-x-0
+    `,
+    className
+  )}
+>
+  <slot />
+</div>

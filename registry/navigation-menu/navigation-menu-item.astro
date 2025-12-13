@@ -1,0 +1,24 @@
+---
+import { cls } from '@/src/lib/utils';
+
+//[[open]]:bg-amber-300
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<details
+  data-slot="menu-item"
+  class={cls(
+    `
+    relative cursor-pointer group font-semibold   rounded transition-all 
+    open:bg-primary/6  duration-200  
+    `,
+    className
+  )}
+>
+  <slot />
+</details>

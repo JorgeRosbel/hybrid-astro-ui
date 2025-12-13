@@ -1,0 +1,20 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<nav
+  class={cls(
+    `
+    bg-background/80 backdrop-blur-sm  not-prose p-2 flex flex-col md:flex-row md:items-center gap-5 w-full 
+    justify-center  items-star`,
+    className
+  )}
+>
+  <slot />
+</nav>

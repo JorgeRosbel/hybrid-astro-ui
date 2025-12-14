@@ -29,6 +29,7 @@ coverage/
 
 
 node_modules/
+image/
 docs/
 examples/
 registry/

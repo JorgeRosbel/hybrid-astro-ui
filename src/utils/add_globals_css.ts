@@ -9,54 +9,55 @@ const globals_css = `
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(99% 0.005 280);
-  --foreground: oklch(18% 0.015 280);
+  --background: oklch(98.8% 0.006 290);
+  --foreground: oklch(17% 0.018 285);
 
-  --primary: oklch(52% 0.18 250);
-  --primary-foreground: oklch(99% 0.005 250);
+  --primary: oklch(50% 0.17 270);
+  --primary-foreground: oklch(98.5% 0.004 270);
 
-  --secondary: oklch(98% 0.006 259.931);
-  --secondary-foreground: oklch(22% 0.02 260);
+  --secondary: oklch(96% 0.01 285);
+  --secondary-foreground: oklch(26% 0.02 285);
 
-  --muted: oklch(95% 0.008 270);
-  --muted-foreground: oklch(50% 0.015 270);
+  --muted: oklch(94% 0.012 285);
+  --muted-foreground: oklch(52% 0.018 285);
 
-  --accent: oklch(94% 0.025 200);
-  --accent-foreground: oklch(20% 0.03 200);
+  --accent: oklch(92% 0.09 85);
+  --accent-foreground: oklch(24% 0.05 85);
 
-  --border: oklch(90% 0.008 270);
-  --input: oklch(92% 0.008 270);
-  --ring: oklch(52% 0.18 250);
+  --border: oklch(88% 0.012 285);
+  --input: oklch(90% 0.012 285);
+  --ring: oklch(50% 0.17 270);
 
   --radius: 0.625rem;
-  --destructive: oklch(62% 0.24 22);         
-  --destructive-foreground: oklch(99% 0.005 22);   
-}
+
+  --destructive: oklch(58% 0.21 25);
+  --destructive-foreground: oklch(98% 0.004 25);
 }
 
 .dark {
-  --background: oklch(13% 0.01 280);
-  --foreground: oklch(96% 0.008 280);
+  --background: oklch(14% 0.012 285);
+  --foreground: oklch(96% 0.01 285);
 
-  --primary: oklch(60% 0.19 250);
-  --primary-foreground: oklch(13% 0.01 250);
+  --primary: oklch(64% 0.18 270);
+  --primary-foreground: oklch(14% 0.01 270);
 
-  --secondary: oklch(22% 0.015 260);
-  --secondary-foreground: oklch(96% 0.01 260);
+  --secondary: oklch(22% 0.016 285);
+  --secondary-foreground: oklch(94% 0.012 285);
 
-  --muted: oklch(20% 0.012 270);
-  --muted-foreground: oklch(60% 0.015 270);
+  --muted: oklch(20% 0.014 285);
+  --muted-foreground: oklch(62% 0.02 285);
 
-  --accent: oklch(25% 0.03 200);
-  --accent-foreground: oklch(96% 0.01 200);
+  --accent: oklch(32% 0.09 85);
+  --accent-foreground: oklch(96% 0.01 85);
 
-  --border: oklch(28% 0.015 270);
-  --input: oklch(26% 0.015 270);
-  --ring: oklch(68% 0.19 250);
+  --border: oklch(28% 0.016 285);
+  --input: oklch(26% 0.016 285);
+  --ring: oklch(70% 0.18 270);
 
-  --destructive: oklch(45% 0.20 22);
-  --destructive-foreground: oklch(96% 0.005 22);
+  --destructive: oklch(48% 0.19 25);
+  --destructive-foreground: oklch(96% 0.008 25);
 }
+
 
 @theme inline {
   --color-background: var(--background);

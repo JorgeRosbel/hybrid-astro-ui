@@ -1,0 +1,21 @@
+{
+  "name": "toggle",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/toggle/index.ts"
+    },
+    {
+      "from": "toggle-active.astro",
+      "to": "src/components/hybrid-astro-ui/toggle/toggle-active.astro"
+    },
+    {
+      "from": "toggle-inactive.astro",
+      "to": "src/components/hybrid-astro-ui/toggle/toggle-inactive.astro"
+    },
+    {
+      "from": "toggle.astro",
+      "to": "src/components/hybrid-astro-ui/toggle/toggle.astro"
+    }
+  ]
+}

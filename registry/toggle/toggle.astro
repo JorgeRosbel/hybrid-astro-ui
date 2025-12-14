@@ -1,0 +1,34 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+  active?: boolean;
+  id?: string;
+  value?: string;
+  name?: string;
+  disabled?: boolean;
+}
+
+const { class: className, active = false, value, id, name, disabled } = Astro.props as Props;
+---
+
+<label
+  for={id}
+  class={cls(
+    `relative bg-muted border-2 not-prose [:has(input:disabled)]:opacity-50 [:has(input:disabled)]:cursor-not-allowed
+          flex items-center leading-none  gap-1 py-2 px-3 rounded-md cursor-pointer *:select-none `,
+    className
+  )}
+>
+  <input
+    disabled={disabled}
+    id={id}
+    name={name}
+    value={value}
+    type="checkbox"
+    checked={active}
+    class="w-full cursor-pointer peer h-full disabled:opacity-45 disabled:cursor-not-allowed sr-only absolute left-1/2 top-1/2 -translate-1/2"
+  />
+  <slot />
+</label>

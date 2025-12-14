@@ -51,7 +51,7 @@ When interactivity is needed, it’s handled through small, lightweight Web Comp
 ## 📚 Documentation
 
 Explore the full documentation, examples, and component library:
-👉 **[https://hybrid-astro-ui.vercel.app](https://hybrid-astro-ui.vercel.app)**
+👉 **[https://hybrid-astro-ui.com](https://hybrid-astro-ui.com)**
 
 ---
 

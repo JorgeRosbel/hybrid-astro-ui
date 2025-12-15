@@ -1,6 +1,6 @@
 import { program } from 'commander';
-import { add } from '@/commands/add';
-import { init } from '@/commands/init';
+import { add } from '@/cli/commands/add';
+import { init } from '@/cli/commands/init';
 
 program.name('ui-elements');
 

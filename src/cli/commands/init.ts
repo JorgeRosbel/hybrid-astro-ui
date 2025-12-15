@@ -1,10 +1,10 @@
-import { checkTsConfig } from '@/utils/check_tsconfig';
-import { checkDependencies } from '@/utils/check_dependencies';
+import { checkTsConfig } from '@/cli/utils/check_tsconfig';
+import { checkDependencies } from '@/cli/utils/check_dependencies';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
-import { folderExists } from '@/utils/folder_exists';
-import { fail } from '@/utils/logs';
-import { addGlobalsCss } from '@/utils/add_globals_css';
+import { folderExists } from '@/cli/utils/folder_exists';
+import { fail } from '@/cli/utils/logs';
+import { addGlobalsCss } from '@/cli/utils/add_globals_css';
 import chalk from 'chalk';
 import boxen from 'boxen';
 

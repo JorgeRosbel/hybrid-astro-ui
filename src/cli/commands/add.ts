@@ -1,7 +1,7 @@
 import { join } from 'path';
-import { created, fail } from '@/utils/logs';
-import { checkTsConfig } from '@/utils/check_tsconfig';
-import { folderExists } from '@/utils/folder_exists';
+import { created, fail } from '@/cli/utils/logs';
+import { checkTsConfig } from '@/cli/utils/check_tsconfig';
+import { folderExists } from '@/cli/utils/folder_exists';
 import fs from 'node:fs/promises';
 import ora from 'ora';
 

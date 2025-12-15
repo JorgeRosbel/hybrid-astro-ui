@@ -2,7 +2,10 @@ import { defineConfig } from 'tsup';
 import { TsconfigPathsPlugin } from '@esbuild-plugins/tsconfig-paths';
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: {
+    cli: 'src/cli/index.ts',
+    mcp: 'src/mcp/index.ts',
+  },
   format: ['esm'],
   dts: true,
   sourcemap: false,

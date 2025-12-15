@@ -52,51 +52,64 @@ server.registerResource(
   }
 );
 
-// const componentTemplate: ResourceTemplate = {
-//   uriTemplate: "hybrid://components/{name}",
-// };
+server.registerResource(
+  'component',
+  'hybrid://components/{name}',
+  {
+    title: 'Detalle de componente',
+    description: 'Información completa de un componente individual',
+    mimeType: 'application/json',
+  },
+  async ({ name }: any) => {
+    try {
+      const data = await fetch(`${MCP_BASE}/components/${name}.json`);
 
-// server.registerResource(
-//   "component",
-//   componentTemplate,
-//   {
-//     title: "Detalle de componente",
-//     description: "Información completa de un componente individual",
-//     mimeType: "application/json",
-//   },
-//   async ({ name }) => {
-//     const filePath = path.join(COMPONENTS_DIR, `${name}.json`);
-
-//     try {
-//       const content = await fs.readFile(filePath, "utf-8");
-
-//       return {
-//         contents: [
-//           {
-//             uri: `hybrid://components/${name}`,
-//             text: content,
-//           },
-//         ],
-//       };
-//     } catch (err) {
-//       return {
-//         contents: [
-//           {
-//             uri: `hybrid://components/${name}`,
-//             text: JSON.stringify(
-//               {
-//                 error: "Component not found",
-//                 name,
-//               },
-//               null,
-//               2
-//             ),
-//           },
-//         ],
-//       };
-//     }
-//   }
-// );
+      if (!data.ok) {
+        return {
+          contents: [
+            {
+              uri: `hybrid://components/${name}`,
+              text: JSON.stringify(
+                {
+                  error: 'Component not found',
+                  name,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+      const componentJson = await data.text();
+      return {
+        contents: [
+          {
+            uri: `hybrid://components/${name}`,
+            text: componentJson,
+          },
+        ],
+      };
+    } catch (err) {
+      return {
+        contents: [
+          {
+            uri: `hybrid://components/${name}`,
+            text: JSON.stringify(
+              {
+                error: 'Failed to fetch component',
+                name,
+                details: err instanceof Error ? err.message : String(err),
+              },
+              null,
+              2
+            ),
+          },
+        ],
+      };
+    }
+  }
+);
 
 // 3️⃣ MAIN
 async function main() {

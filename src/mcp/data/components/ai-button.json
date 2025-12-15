@@ -1,0 +1,85 @@
+{
+  "title": "AIButton",
+  "name": "ai-button",
+  "description": "A smart, provider-aware button component that instantly opens prompts in AI tools like ChatGPT or Perplexity. Fully themeable, variant-based, and designed for seamless integration into Astro projects without JavaScript by default. Perfect for enhancing UX with AI actions directly from your UI.",
+  "category": "components",
+  "installation": {
+    "cli": {
+      "npm": "npx hybrid-astro-ui@latest add ai-button",
+      "pnpm": "pnpm dlx hybrid-astro-ui@latest add ai-button",
+      "yarn": "yarn dlx hybrid-astro-ui@latest add ai-button",
+      "bun": "bunx hybrid-astro-ui@latest add ai-button"
+    }
+  },
+  "usage": {
+    "import": "import { AIButton } from \"@/src/components/hybrid-astro-ui/ai-button\"",
+    "examples": [
+      {
+        "title": "Basic Usage",
+        "description": "Open prompts in ChatGPT or Perplexity",
+        "code": "<AIButton \n    provider=\"openai\" \n    prompt=\"Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.\"\n>\n    Open in ChatGPT\n</AIButton>\n<AIButton \n    provider=\"perplexity\" \n    prompt=\"Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.\" \n>\n    Open in Perplexity\n</AIButton>"
+      },
+      {
+        "title": "Variant: outline",
+        "description": "Outline variant style",
+        "code": "<AIButton \n    variant=\"outline\"\n    provider=\"openai\" \n    prompt=\"Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.\"\n>\n    Open in ChatGPT\n</AIButton>"
+      },
+      {
+        "title": "Variant: destructive",
+        "description": "Destructive variant style",
+        "code": "<AIButton \n    variant=\"destructive\"\n    provider=\"openai\" \n    prompt=\"Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.\"\n>\n    Open in ChatGPT\n</AIButton>"
+      },
+      {
+        "title": "Variant: link",
+        "description": "Link variant style",
+        "code": "<AIButton \n    variant=\"link\"\n    provider=\"openai\" \n    prompt=\"Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.\"\n>\n    Open in ChatGPT\n</AIButton>"
+      }
+    ]
+  },
+  "component_structure": {
+    "files": [
+      {
+        "name": "ai-button.astro",
+        "type": "astro",
+        "description": "Main AIButton component with provider logic and prompt handling and styling variants"
+      },
+      {
+        "name": "index.ts",
+        "type": "typescript",
+        "description": "Export file for the AIButton component"
+      }
+    ]
+  },
+  "props": [
+    {
+      "name": "class",
+      "description": "Additional custom classes",
+      "type": "string",
+      "default": "-"
+    },
+    {
+      "name": "variant",
+      "description": "Visual style of the button",
+      "type": "\"default\" | \"secondary\" | \"outline\" | \"ghost\" | \"link\" | \"destructive\"",
+      "default": "\"default\""
+    },
+    {
+      "name": "size",
+      "description": "Size of the button",
+      "type": "\"sm\" | \"md\" | \"lg\" | \"icon\"",
+      "default": "\"sm\""
+    },
+    {
+      "name": "prompt",
+      "description": "The prompt text to send to the AI provider",
+      "type": "string",
+      "default": "required"
+    },
+    {
+      "name": "provider",
+      "description": "AI provider to open the prompt in",
+      "type": "\"openai\" | \"perplexity\"",
+      "default": "required"
+    }
+  ]
+}

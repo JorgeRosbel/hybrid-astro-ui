@@ -1,21 +1,126 @@
 {
   "library": "Hybrid Astro UI",
-  "version": ".0.14",
+  "version": "0.14",
   "components": [
     {
-      "name": "separator",
-      "title": "Separator",
-      "description": "Visual divider used to separate content"
+      "name": "ai-button",
+      "title": "AIButton",
+      "description": "A smart, provider-aware button component that instantly opens prompts in AI tools like ChatGPT or Perplexity. Fully themeable, variant-based, and designed for seamless integration into Astro projects without JavaScript by default. Perfect for enhancing UX with AI actions directly from your UI."
     },
     {
-      "name": "tooltip",
-      "title": "Tooltip",
-      "description": "Accessible tooltip component"
+      "name": "animate-scroll",
+      "title": "AnimateScroll",
+      "description": "A lightweight scroll-triggered animation wrapper that automatically animates each of its direct children as they enter or leave the viewport. Supports nested usage for granular control and configurable visibility thresholds"
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "description": "A flexible avatar component that supports both static and dynamic images, with automatic optimization for local assets and seamless rendering for API-loaded content. Includes multiple size variants and two rendering modes for maximum compatibility."
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "description": "A lightweight, versatile badge component that provides clear labeling, supports multiple variants, and integrates seamlessly with icons or interactive UI elements."
     },
     {
       "name": "button",
       "title": "Button",
-      "description": "Base button component with variants"
+      "description": "A customizable button component offering variant-based styling, size options, and support for rendering as different HTML blocks while preserving all native attributes."
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "description": "A structured card component system with dedicated subcomponents for headers, content, and footers. Provides a clean, flexible layout for displaying grouped information, statistics, and UI sections."
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "description": "A flexible and accessible checkbox component that supports custom styles, seamless labeling, disabled states, and smooth integration within form interfaces. Designed to deliver consistent behavior, intuitive interaction, and compatibility with external labels, it adapts effortlessly to a wide range of UI layouts and use cases."
+    },
+    {
+      "name": "form-field",
+      "title": "FormField",
+      "description": "A lightweight, semantic wrapper for organizing related form inputs, combining accessible fieldsets with fully customizable visual titles for clean and well-structured forms."
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "description": "A flexible input component that supports all native HTML input attributes, offering a consistent style for text fields, file inputs, and fully customizable form blocks."
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "description": "A simple and accessible label component that pairs seamlessly with form inputs, providing clear semantics, consistent styling, and support for disabled states."
+    },
+    {
+      "name": "list",
+      "title": "List",
+      "description": "A flexible list component composed of ListItem, ListItemMarker, and ListItemContent, allowing fully customizable markers and multi-line content, optimized for Lucide icons."
+    },
+    {
+      "name": "navigation-menu",
+      "title": "NavigationMenu",
+      "description": "A responsive Mega Menu component using Tailwind CSS and the native <details> element, ideal for structuring complex, multi-column navigation with descriptions and direct links."
+    },
+    {
+      "name": "page-metadata",
+      "title": "PageMetadata",
+      "description": "An all-in-one metadata component that streamlines SEO tags, social preview images, favicon links, font preloading, and optional client-side routing—providing a structured, maintainable way to manage metadata across Astro projects."
+    },
+    {
+      "name": "pagination-controls",
+      "title": "PaginationControls",
+      "description": "A compact, Astro-native pagination system that syncs directly with Astro's routing and pagination APIs, offering modular controls, dynamic page indices, and zero client-side JavaScript. Ideal for clean, scalable multi-page navigation in Astro projects."
+    },
+    {
+      "name": "post-meta",
+      "title": "PostMeta",
+      "description": "A versatile metadata component designed for blog posts, documentation pages, and content-driven layouts"
+    },
+    {
+      "name": "preview-link",
+      "title": "PreviewLink",
+      "description": "Components for creating interactive inline links that trigger a floating content panel (tooltip/popup) on hover, enriching the reading experience without interrupting the flow of the main text."
+    },
+    {
+      "name": "review-stars",
+      "title": "ReviewStars",
+      "description": "A detailed rating breakdown component that displays star tiers with percentage-based distribution, customizable color variants, and accessible semantics—ideal for product reviews, feedback summaries, and analytics dashboards."
+    },
+    {
+      "name": "scroll-area",
+      "title": "ScrollArea",
+      "description": "A scrollable container component that enables smooth vertical or horizontal scrolling for overflowing content, with full control over direction, layout, and custom styling."
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "description": "A decorative and functional separator component offering multiple visual styles and customizable widths, ideal for section dividers and content organization."
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "description": "A customizable loading spinner component that offers various animated icons, suitable for buttons, forms, and asynchronous UI states."
+    },
+    {
+      "name": "textarea",
+      "title": "TextArea",
+      "description": "A flexible input component that supports all native HTML input attributes, offering a consistent style for text fields, file inputs, and fully customizable form blocks."
+    },
+    {
+      "name": "theme-toggle",
+      "title": "Theme Toggle",
+      "description": "A flexible wrapper component for toggling between light and dark themes, fully customizable and designed to work seamlessly with the ThemeProvider."
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "description": "A lightweight, accessible toggle component for Astro, perfect for managing binary UI states like likes, bookmarks, and switches. Fully customizable with Tailwind CSS."
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "description": "A lightweight, direction-aware tooltip component designed for Astro projects. Fully themeable, compatible with custom orientations, and built to enhance UX with accessible, hover-based hints — all without requiring JavaScript by default."
     }
   ]
-} 
+}

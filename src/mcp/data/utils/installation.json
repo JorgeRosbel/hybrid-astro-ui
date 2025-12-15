@@ -1,0 +1,74 @@
+{
+  "title": "Installation",
+  "category": "install",
+  "description": "Exact step-by-step installation guide for Hybrid Astro UI. All files include full copy-paste content.",
+  "recommendedMethod": "cli",
+  "methods": [
+    {
+      "id": "cli",
+      "title": "Install using CLI (recommended)",
+      "description": "Fastest way to install Hybrid Astro UI using the official CLI.",
+      "steps": [
+        {
+          "title": "Initialize Hybrid Astro UI",
+          "commands": {
+            "npm": "npx hybrid-astro-ui@latest init",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest init",
+            "yarn": "yarn dlx hybrid-astro-ui@latest init",
+            "bun": "bunx hybrid-astro-ui@latest init"
+          }
+        },
+        {
+          "title": "Add a component",
+          "commands": {
+            "npm": "npx hybrid-astro-ui@latest add button",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add button",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add button",
+            "bun": "bunx hybrid-astro-ui@latest add button"
+          }
+        }
+      ]
+    },
+    {
+      "id": "manual",
+      "title": "Manual installation",
+      "description": "Manual installation with full file contents.",
+      "steps": [
+        {
+          "title": "Install dependencies",
+          "commands": {
+            "npm": "npm install @lucide/astro tailwind-merge clsx && npm astro add tailwind",
+            "pnpm": "pnpm add @lucide/astro tailwind-merge clsx && pnpm astro add tailwind",
+            "yarn": "yarn add @lucide/astro tailwind-merge clsx && yarn astro add tailwind",
+            "bun": "bun add @lucide/astro tailwind-merge clsx && bun astro add tailwind"
+          }
+        },
+        {
+          "title": "Create global styles",
+          "file": "src/styles/global.css",
+          "content": "/* src/styles/global.css */\n\n@import \"tailwindcss\";\n\n@custom-variant dark (&:is(.dark *));\n\n:root {\n  --background: oklch(99% 0.005 280);\n  --foreground: oklch(18% 0.015 280);\n\n  --primary: oklch(52% 0.18 250);\n  --primary-foreground: oklch(99% 0.005 250);\n\n  --secondary: oklch(98% 0.006 259.931);\n  --secondary-foreground: oklch(22% 0.02 260);\n\n  --muted: oklch(95% 0.008 270);\n  --muted-foreground: oklch(50% 0.015 270);\n\n  --accent: oklch(94% 0.025 200);\n  --accent-foreground: oklch(20% 0.03 200);\n\n  --border: oklch(90% 0.008 270);\n  --input: oklch(92% 0.008 270);\n  --ring: oklch(52% 0.18 250);\n\n  --radius: 0.625rem;\n}\n\n.dark {\n  --background: oklch(13% 0.01 280);\n  --foreground: oklch(96% 0.008 280);\n\n  --primary: oklch(68% 0.19 250);\n  --primary-foreground: oklch(13% 0.01 250);\n\n  --secondary: oklch(22% 0.015 260);\n  --secondary-foreground: oklch(96% 0.01 260);\n\n  --muted: oklch(20% 0.012 270);\n  --muted-foreground: oklch(60% 0.015 270);\n\n  --accent: oklch(25% 0.03 200);\n  --accent-foreground: oklch(96% 0.01 200);\n\n  --border: oklch(28% 0.015 270);\n  --input: oklch(26% 0.015 270);\n  --ring: oklch(68% 0.19 250);\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --color-primary: var(--primary);\n  --color-primary-foreground: var(--primary-foreground);\n  --color-secondary: var(--secondary);\n  --color-secondary-foreground: var(--secondary-foreground);\n  --color-muted: var(--muted);\n  --color-muted-foreground: var(--muted-foreground);\n  --color-accent: var(--accent);\n  --color-accent-foreground: var(--accent-foreground);\n  --color-border: var(--border);\n  --color-input: var(--input);\n  --color-ring: var(--ring);\n\n  --radius-sm: calc(var(--radius) - 4px);\n  --radius-md: calc(var(--radius) - 2px);\n  --radius-lg: var(--radius);\n  --radius-xl: calc(var(--radius) + 4px);\n}\n\n@layer base {\n  * {\n    @apply border-border;\n  }\n  body {\n    @apply bg-background text-foreground;\n  }\n}"
+        },
+        {
+          "title": "Import global styles",
+          "file": "src/layouts/BaseLayout.astro",
+          "content": "---\nimport '@/src/styles/global.css';\n---\n\n<!doctype html>\n<html lang=\"en\" class=\"dark\">\n  <head />\n  <body class=\"w-full min-h-screen\">\n    <slot />\n  </body>\n</html>"
+        },
+        {
+          "title": "Configure TypeScript paths",
+          "file": "tsconfig.json",
+          "content": "{\n  \"extends\": \"astro/tsconfigs/strict\",\n  \"include\": [\".astro/types.d.ts\", \"**/*\"],\n  \"exclude\": [\"dist\"],\n  \"compilerOptions\": {\n    \"baseUrl\": \".\",\n    \"paths\": {\n      \"@/*\": [\"./*\"]\n    }\n  }\n}"
+        },
+        {
+          "title": "Create utilities",
+          "file": "lib/utils.ts",
+          "content": "import { twMerge } from \"tailwind-merge\";\nimport { clsx, type ClassValue } from \"clsx\";\n\nexport function cls(...args: ClassValue[]) {\n  return twMerge(clsx(args));\n}"
+        },
+        {
+          "title": "Add Astro type declaration",
+          "file": "astro-env.d.ts",
+          "content": "/// <reference types=\"astro/client\" />\n\ndeclare module '*.astro' {\n  import type { AstroComponentFactory } from 'astro';\n  const component: AstroComponentFactory;\n  export default component;\n}"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "library": "Hybrid Astro UI",
+  "version": ".0.14",
+  "components": [
+    {
+      "name": "separator",
+      "title": "Separator",
+      "description": "Visual divider used to separate content"
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "description": "Accessible tooltip component"
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "description": "Base button component with variants"
+    }
+  ]
+} 

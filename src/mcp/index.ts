@@ -100,6 +100,11 @@ server.registerResource(
 
 // 3️⃣ MAIN
 async function main() {
+  const data = await fetch(`${MCP_BASE}/components/index.json`);
+  const indexJson = await data.text();
+
+  console.log(indexJson);
+
   // ⚠️ IMPORTANTE: stdio transport
   const transport = new StdioServerTransport();
 

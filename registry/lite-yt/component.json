@@ -1,0 +1,13 @@
+{
+  "name": "lite-yt",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/lite-yt/index.ts"
+    },
+    {
+      "from": "lite-yt.astro",
+      "to": "src/components/hybrid-astro-ui/lite-yt/lite-yt.astro"
+    }
+  ]
+}

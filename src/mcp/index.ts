@@ -31,6 +31,7 @@ const componentFiles = [
   'toggle.json',
   'tooltip.json',
   'select.json',
+  'lite-yt.json',
 ];
 
 const server = new McpServer({

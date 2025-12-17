@@ -126,6 +126,11 @@
       "name": "select",
       "title": "Sooltip",
       "description": "A fully customizable select component for Astro projects, built with composable primitives and minimal JavaScript. Supports grouped options, icons, keyboard navigation, and accessible semantics by default. Designed to be flexible, themeable, and production-ready."
+    },
+    {
+      "name": "lite-yt",
+      "title": "LiteYT",
+      "description": "A lightweight YouTube embed component that loads video thumbnails initially and only loads the full YouTube player when clicked. This approach significantly improves page performance by deferring the loading of heavy YouTube iframes until user interaction. The component is fully accessible, supports keyboard navigation, and uses YouTube's privacy-enhanced nocookie domain."
     }
   ]
 }

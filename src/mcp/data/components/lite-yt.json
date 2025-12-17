@@ -1,0 +1,56 @@
+{
+  "title": "LiteYT",
+  "name": "lite-yt",
+  "description": "A lightweight YouTube embed component that loads video thumbnails initially and only loads the full YouTube player when clicked. This approach significantly improves page performance by deferring the loading of heavy YouTube iframes until user interaction. The component is fully accessible, supports keyboard navigation, and uses YouTube's privacy-enhanced nocookie domain.",
+  "category": "components",
+  "installation": {
+    "cli": {
+      "npm": "npx hybrid-astro-ui@latest add lite-yt",
+      "pnpm": "pnpm dlx hybrid-astro-ui@latest add lite-yt",
+      "yarn": "yarn dlx hybrid-astro-ui@latest add lite-yt",
+      "bun": "bunx hybrid-astro-ui@latest add lite-yt"
+    }
+  },
+  "usage": {
+    "import": "import { LiteYT } from \"@/src/components/hybrid-astro-ui/lite-yt\"",
+    "examples": [
+      {
+        "title": "Basic Usage",
+        "description": "Embed a YouTube video with lazy loading",
+        "code": "<LiteYT class=\"max-w-100\" videoid=\"M7lc1UVf-VE\" />"
+      }
+    ]
+  },
+  "component_structure": {
+    "files": [
+      {
+        "name": "lite-yt.astro",
+        "type": "astro",
+        "description": "Main LiteYT component with custom web element for lazy loading YouTube videos"
+      },
+      {
+        "name": "index.ts",
+        "type": "typescript",
+        "description": "Export file for the LiteYT component"
+      }
+    ]
+  },
+  "props": [
+    {
+      "name": "videoid",
+      "description": "YouTube video ID to embed",
+      "type": "string",
+      "default": "required"
+    },
+    {
+      "name": "class",
+      "description": "Additional custom classes",
+      "type": "string",
+      "default": "-"
+    }
+  ],
+  "sourceCodeOfComponts": {
+    "lite-yt.astro": "---\nimport { cls } from '@/src/lib/utils';\n\ninterface Props {\n    videoid: string;\n    class?:string;\n}\n\nconst { videoid, class:className } = Astro.props as Props;\n---\n\n<lite-youtube\n    videoid={videoid}\n    class={cls(`\n    group relative block w-full aspect-video\n    bg-black cursor-pointer\n\n    before:absolute before:inset-0\n    before:bg-(image:--yt-thumb)\n    before:bg-cover before:bg-center\n    before:brightness-90\n    group-[.is-loaded]:before:hidden\n\n    after:absolute after:inset-0\n    after:bg-[url('data:image/svg+xml;utf8,<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 68 48\\\"><path d=\\\"M66.52 7.15a8 8 0 0 0-5.6-5.66C55.73 0 34 0 34 0S12.27 0 7.08 1.49A8 8 0 0 0 1.48 7.15C0 12.33 0 24 0 24s0 11.67 1.48 16.85a8 8 0 0 0 5.6 5.66C12.27 48 34 48 34 48s21.73 0 26.92-1.49a8 8 0 0 0 5.6-5.66C68 35.67 68 24 68 24s0-11.67-1.48-16.85z\\\" fill=\\\"%23f00\\\"/><polygon points=\\\"45,24 27,14 27,34\\\" fill=\\\"%23fff\\\"/></svg>')]\n    after:bg-no-repeat after:bg-center\n    after:bg-size-[68px_48px]\n    group-[.is-loaded]:after:hidden\n  `, className)}\n></lite-youtube>\n\n<script>\n    \n    class LiteYouTube extends HTMLElement {\n        connectedCallback() {\n            const id = this.getAttribute(\"videoid\");\n            if (!id) return;\n\n            this.style.setProperty(\n                \"--yt-thumb\",\n                `url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`,\n            );\n\n            this.setAttribute(\"role\", \"button\");\n            this.setAttribute(\"tabindex\", \"0\");\n            this.setAttribute(\"aria-label\", \"Play YouTube video\");\n\n            this.addEventListener(\"click\", this.load, { once: true });\n            this.addEventListener(\n                \"keydown\",\n                (e) => {\n                    if (e.key === \"Enter\" || e.key === \" \") {\n                        e.preventDefault();\n                        this.load();\n                    }\n                },\n                { once: true },\n            );\n        }\n\n        load = () => {\n            const id = this.getAttribute(\"videoid\");\n            this.classList.add(\"before:none\");\n\n            this.classList.add(\"is-loaded\");\n\n            const iframe = document.createElement(\"iframe\");\n            iframe.src =\n                `https://www.youtube-nocookie.com/embed/${id}` +\n                `?autoplay=1&controls=1&playsinline=1&rel=0`;\n\n            iframe.allow =\n                \"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\";\n            iframe.allowFullscreen = true;\n            iframe.className = \"w-full h-full border-0 relative z-50\";\n\n            this.innerHTML = \"\";\n            this.appendChild(iframe);\n        };\n    }\n\n    if (!customElements.get(\"lite-youtube\")) {\n        customElements.define(\"lite-youtube\", LiteYouTube);\n    }\n</script>",
+    "index.ts": "export { default as LiteYT } from \"./lite-yt.astro\""
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "select",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/select/index.ts"
+    },
+    {
+      "from": "select-content.astro",
+      "to": "src/components/hybrid-astro-ui/select/select-content.astro"
+    },
+    {
+      "from": "select-group.astro",
+      "to": "src/components/hybrid-astro-ui/select/select-group.astro"
+    },
+    {
+      "from": "select-label.astro",
+      "to": "src/components/hybrid-astro-ui/select/select-label.astro"
+    },
+    {
+      "from": "select-option.astro",
+      "to": "src/components/hybrid-astro-ui/select/select-option.astro"
+    },
+    {
+      "from": "select-trigger.astro",
+      "to": "src/components/hybrid-astro-ui/select/select-trigger.astro"
+    },
+    {
+      "from": "select.astro",
+      "to": "src/components/hybrid-astro-ui/select/select.astro"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<ul
+  data-dropdown
+  class={cls(
+    `
+        [&::-webkit-scrollbar]:w-2 
+ [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar-track]:rounded-full 
+ [&::-webkit-scrollbar-thumb]:bg-primary/20 [&::-webkit-scrollbar-thumb]:rounded-full max-h-100
+ [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 
+ [&::-webkit-scrollbar-button]:hidden 
+ overflow-y-scroll overflow-x-hidden
+    opacity-0  grid  rounded-b-md [&_li]:px-3 [&_li]:py-0.5 [&_li]:rounded-sm [&_li]:transition-all [&_li]:duration-200 
+    invisible bg-muted transition-all duration-200 [&_li]:cursor-pointer space-y-1 absolute left-0 top-full py-2 px-1 border w-full`,
+    className
+  )}
+>
+  <slot />
+</ul>

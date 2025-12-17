@@ -1,0 +1,162 @@
+{
+    "title": "Select",
+    "name": "select",
+    "description": "A fully customizable select component for Astro projects, built with composable primitives and minimal JavaScript. Supports grouped options, icons, keyboard navigation, and accessible semantics by default. Designed to be flexible, themeable, and production-ready.",
+    "category": "components",
+    "installation": {
+        "cli": {
+            "npm": "npx hybrid-astro-ui@latest add select",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add select",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add select",
+            "bun": "bunx hybrid-astro-ui@latest add select"
+        }
+    },
+    "usage": {
+        "import": "import { Select, SelectContent, SelectGroup, SelectLabel, SelectOption, SelectTrigger } from \"@/src/components/select\"",
+        "examples": [
+            {
+                "title": "Basic select",
+                "description": "Simple select with grouped options",
+                "code": "<Select class=\"w-60\">\n    <SelectTrigger>Choose your destination</SelectTrigger>\n    <SelectContent>\n        <SelectGroup>\n            <SelectLabel>Favorite places</SelectLabel>\n            <SelectOption value=\"home\">Home</SelectOption>\n            <SelectOption value=\"office\">Office</SelectOption>\n            <SelectOption value=\"beach\">Beach</SelectOption>\n        </SelectGroup>\n    </SelectContent>\n</Select>"
+            },
+            {
+                "title": "Multiple groups",
+                "description": "Select with multiple option groups",
+                "code": "<Select class=\"w-60\">\n    <SelectTrigger>Choose your destination</SelectTrigger>\n    <SelectContent>\n        <SelectGroup>\n            <SelectLabel>Favorite places</SelectLabel>\n            <SelectOption value=\"home\">Home</SelectOption>\n            <SelectOption value=\"office\">Office</SelectOption>\n        </SelectGroup>\n        <SelectGroup class=\"border-t\">\n            <SelectLabel>Recent trips</SelectLabel>\n            <SelectOption value=\"paris\">Paris</SelectOption>\n            <SelectOption value=\"new-york\">New York</SelectOption>\n        </SelectGroup>\n    </SelectContent>\n</Select>"
+            },
+            {
+                "title": "With icons",
+                "description": "Select options with icons",
+                "code": "<Select class=\"w-60\">\n    <SelectTrigger>Choose icon</SelectTrigger>\n    <SelectContent>\n        <SelectGroup class=\"grid-cols-4 [&_svg]:w-5 [&_svg]:h-5\">\n            <SelectOption value=\"alarm\"><Alarm /></SelectOption>\n            <SelectOption value=\"star\"><Star /></SelectOption>\n            <SelectOption value=\"globe\"><Globe/></SelectOption>\n            <SelectOption value=\"mail\"><Mail /></SelectOption>\n        </SelectGroup>\n    </SelectContent>\n</Select>"
+            }
+        ]
+    },
+    "component_structure": {
+        "files": [
+            {
+                "name": "select.astro",
+                "type": "astro",
+                "description": "Main Select component with custom element logic and dropdown functionality"
+            },
+            {
+                "name": "select-content.astro",
+                "type": "astro",
+                "description": "SelectContent component for dropdown menu container with scrolling"
+            },
+            {
+                "name": "select-group.astro",
+                "type": "astro",
+                "description": "SelectGroup component for organizing related options"
+            },
+            {
+                "name": "select-label.astro",
+                "type": "astro",
+                "description": "SelectLabel component for non-interactive group headings"
+            },
+            {
+                "name": "select-option.astro",
+                "type": "astro",
+                "description": "SelectOption component for individual selectable items"
+            },
+            {
+                "name": "select-trigger.astro",
+                "type": "astro",
+                "description": "SelectTrigger component for the clickable button element"
+            },
+            {
+                "name": "index.ts",
+                "type": "typescript",
+                "description": "Export file for all Select subcomponents"
+            }
+        ]
+    },
+    "props": [
+        {
+            "name": "Select",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                },
+                {
+                    "name": "id",
+                    "description": "Unique identifier for the select element",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "SelectTrigger",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "SelectContent",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "SelectGroup",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "SelectLabel",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "SelectOption",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                },
+                {
+                    "name": "value",
+                    "description": "The value returned when this option is selected",
+                    "type": "string | number | boolean | null | undefined",
+                    "default": "required"
+                }
+            ]
+        }
+    ],
+    "sourceCodeOfComponts": {
+        "select.astro": "---\nimport { cls } from \"@/src/lib/utils\";\nimport Chevron from \"@lucide/astro/icons/chevron-down\"\n\ninterface Props {\n    class?: string;\n    id?: string;\n}\n\nconst { class: className, id } = Astro.props as Props;\n---\n\n<custom-select\n    id={id}\n    class={cls(\n        \"border px-3 rounded-[0.4rem] relative py-1  bg-muted w-full not-prose flex justify-between items-center leading-none\",\n        className,\n    )}\n>\n    <slot />\n    <Chevron class=\"opacity-80 h-5 w-5\" />\n</custom-select>\n\n<script>\n  class CustomSelect extends HTMLElement {\n    private trigger!: HTMLButtonElement;\n    private dropdown!: HTMLUListElement;\n    private label!: HTMLElement;\n    private hiddenInput: HTMLInputElement | null = null;\n    private open = false;\n\n    constructor() {\n      super();\n    }\n\n    connectedCallback() {\n      this.trigger = this.querySelector<HTMLButtonElement>('[data-trigger]')!;\n      this.dropdown = this.querySelector<HTMLUListElement>('[data-dropdown]')!;\n      this.label = this.querySelector<HTMLElement>('[data-label]')!;\n      this.hiddenInput = this.querySelector<HTMLInputElement>('input[type=\"hidden\"]');\n\n      this.trigger.addEventListener('click', () => this.toggle());\n      document.addEventListener('click', this.handleOutsideClick);\n      this.setupOptions();\n    }\n\n    disconnectedCallback() {\n      document.removeEventListener('click', this.handleOutsideClick);\n    }\n\n    private handleOutsideClick = (e: MouseEvent) => {\n      if (!this.contains(e.target as Node)) this.close();\n    };\n\n    private setupOptions() {\n      const options = this.querySelectorAll<HTMLElement>('[data-option]');\n\n      options.forEach((option) => {\n        option.addEventListener('click', () => {\n          const value = option.getAttribute('data-value') ?? '';\n\n          this.label.textContent = value;\n          if (this.hiddenInput) this.hiddenInput.value = value;\n          this.setAttribute('value', value);\n\n          this.toggleActiveState(option);\n          this.close();\n        });\n      });\n    }\n\n    private toggleActiveState(selectedOption: HTMLElement) {\n      const options = this.querySelectorAll<HTMLElement>('[data-option]');\n\n      options.forEach((option) => {\n        if (option === selectedOption) {\n          option.classList.remove('[&_div]:invisible');\n          option.classList.add('[&_div]:visible');\n        } else {\n          option.classList.remove('[&_div]:visible');\n          option.classList.add('[&_div]:invisible');\n        }\n      });\n    }\n\n    private toggle() {\n      this.open ? this.close() : this.openDropdown();\n    }\n\n    private openDropdown() {\n      this.open = true;\n      this.dropdown.classList.remove('opacity-0', 'invisible');\n      this.dropdown.classList.add('opacity-100', 'visible');\n      this.trigger.setAttribute('aria-expanded', 'true');\n    }\n\n    private close() {\n      this.open = false;\n      this.dropdown.classList.remove('opacity-100', 'visible');\n      this.dropdown.classList.add('opacity-0', 'invisible');\n      this.trigger.setAttribute('aria-expanded', 'false');\n    }\n  }\n\n  if (!customElements.get('custom-select')) {\n    customElements.define('custom-select', CustomSelect);\n  }\n</script>",
+        "select-content.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<ul\n    data-dropdown\n    class={cls(\n        `\n        [&::-webkit-scrollbar]:w-2 \n [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar-track]:rounded-full \n [&::-webkit-scrollbar-thumb]:bg-primary/20 [&::-webkit-scrollbar-thumb]:rounded-full max-h-100\n [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 \n [&::-webkit-scrollbar-button]:hidden \n overflow-y-scroll overflow-x-hidden\n    opacity-0  grid  rounded-b-md [&_li]:px-3 [&_li]:py-0.5 [&_li]:rounded-sm [&_li]:transition-all [&_li]:duration-200 \n    invisible bg-muted transition-all duration-200 [&_li]:cursor-pointer space-y-1 absolute left-0 top-full py-2 px-1 border w-full`,\n        className,\n    )}\n>\n    <slot />\n</ul>",
+        "select-group.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div class={cls(\"space-y-1 grid py-2\",className)}>\n    <slot />\n</div>",
+        "select-label.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?:string\n}\n\nconst { class:className } = Astro.props as Props\n---\n\n<li class={\n    cls(\"text-[0.8rem] opacity-50 relative top-0 mb-2\", className)\n}>\n    <slot />\n</li>",
+        "select-option.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?:string\n    value: string | number | boolean | null | undefined\n}\n\nconst { class:className, value } = Astro.props as Props\n---\n\n<li class={cls(\"hover:bg-secondary rounded text-sm flex items-center justify-between [&_div]:invisible\", className)} data-option data-value={value}>\n    <span>\n        <slot />\n    </span>\n    <div class=\"rounded-full h-2 w-2 bg-foreground opacity-85 \"></div>\n</li>",
+        "select-trigger.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<button data-trigger class={cls(\"cursor-pointer w-full md:text-sm opacity-80\", className)}>\n    <span data-label>\n        <slot />\n    </span>\n</button>",
+        "index.ts": "export { default as Select } from \"./select.astro\"\nexport { default as SelectContent } from \"./select-content.astro\"\nexport { default as SelectGroup } from \"./select-group.astro\"\nexport { default as SelectOption } from \"./select-option.astro\"\nexport { default as SelectTrigger } from \"./select-trigger.astro\"\nexport { default as SelectLabel } from \"./select-label.astro\""
+    }
+}

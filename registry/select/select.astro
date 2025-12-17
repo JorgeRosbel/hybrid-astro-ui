@@ -1,0 +1,108 @@
+---
+import { cls } from '@/src/lib/utils';
+import Chevron from '@lucide/astro/icons/chevron-down';
+
+interface Props {
+  class?: string;
+  id?: string;
+}
+
+const { class: className, id } = Astro.props as Props;
+---
+
+<custom-select
+  id={id}
+  class={cls(
+    'border px-3 rounded-[0.4rem] relative py-1  bg-muted w-full not-prose flex justify-between items-center leading-none',
+    className
+  )}
+>
+  <slot />
+  <Chevron class="opacity-80 h-5 w-5" />
+</custom-select>
+
+<script>
+  class CustomSelect extends HTMLElement {
+    private trigger!: HTMLButtonElement;
+    private dropdown!: HTMLUListElement;
+    private label!: HTMLElement;
+    private hiddenInput: HTMLInputElement | null = null;
+    private open = false;
+
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.trigger = this.querySelector<HTMLButtonElement>('[data-trigger]')!;
+      this.dropdown = this.querySelector<HTMLUListElement>('[data-dropdown]')!;
+      this.label = this.querySelector<HTMLElement>('[data-label]')!;
+      this.hiddenInput = this.querySelector<HTMLInputElement>('input[type="hidden"]');
+
+      this.trigger.addEventListener('click', () => this.toggle());
+      document.addEventListener('click', this.handleOutsideClick);
+      this.setupOptions();
+    }
+
+    disconnectedCallback() {
+      document.removeEventListener('click', this.handleOutsideClick);
+    }
+
+    private handleOutsideClick = (e: MouseEvent) => {
+      if (!this.contains(e.target as Node)) this.close();
+    };
+
+    private setupOptions() {
+      const options = this.querySelectorAll<HTMLElement>('[data-option]');
+
+      options.forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.getAttribute('data-value') ?? '';
+
+          this.label.textContent = value;
+          if (this.hiddenInput) this.hiddenInput.value = value;
+          this.setAttribute('value', value);
+
+          this.toggleActiveState(option);
+          this.close();
+        });
+      });
+    }
+
+    private toggleActiveState(selectedOption: HTMLElement) {
+      const options = this.querySelectorAll<HTMLElement>('[data-option]');
+
+      options.forEach(option => {
+        if (option === selectedOption) {
+          option.classList.remove('[&_div]:invisible');
+          option.classList.add('[&_div]:visible');
+        } else {
+          option.classList.remove('[&_div]:visible');
+          option.classList.add('[&_div]:invisible');
+        }
+      });
+    }
+
+    private toggle() {
+      this.open ? this.close() : this.openDropdown();
+    }
+
+    private openDropdown() {
+      this.open = true;
+      this.dropdown.classList.remove('opacity-0', 'invisible');
+      this.dropdown.classList.add('opacity-100', 'visible');
+      this.trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    private close() {
+      this.open = false;
+      this.dropdown.classList.remove('opacity-100', 'visible');
+      this.dropdown.classList.add('opacity-0', 'invisible');
+      this.trigger.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  if (!customElements.get('custom-select')) {
+    customElements.define('custom-select', CustomSelect);
+  }
+</script>

@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { GetPromptResult } from '@modelcontextprotocol/sdk/types';
 import z from 'zod';
 
 const MCP_BASE = 'https://raw.githubusercontent.com/JorgeRosbel/hybrid-astro-ui/main/src/mcp/data';
@@ -29,6 +30,7 @@ const componentFiles = [
   'theme-toggle.json',
   'toggle.json',
   'tooltip.json',
+  'select.json',
 ];
 
 const server = new McpServer({
@@ -37,19 +39,17 @@ const server = new McpServer({
 });
 
 server.registerTool(
-  'example_tool',
+  'docs',
   {
-    description: 'placeholder',
-    inputSchema: z.object({
-      mensaje: z.string().describe('foo'),
-    }),
+    description: 'Documentation-only MCP. No actions are performed.',
+    inputSchema: z.object({}),
   },
-  async (params: { mensaje: string }) => {
+  async () => {
     return {
       content: [
         {
           type: 'text' as const,
-          text: `Re: ${params.mensaje}`,
+          text: 'Documentation-only MCP. No action required.',
         },
       ],
     };
@@ -153,6 +153,89 @@ componentFiles.forEach(file => {
   );
 });
 
+server.registerPrompt(
+  'explain_component',
+  {
+    description: 'Explain a Hybrid Astro UI component using official documentation',
+    argsSchema: {
+      component: z.string().describe('Component name (e.g. button, card)'),
+    },
+  },
+  async ({ component }): Promise<GetPromptResult> => {
+    return {
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `
+You are an expert in Hybrid Astro UI.
+
+Use ONLY the official documentation provided via MCP resources.
+Do NOT invent props, variants, or behaviors.
+
+Explain the ${component} component with:
+- Purpose
+- When to use it
+- Props / variants
+- Accessibility considerations
+- Minimal Astro example
+            `.trim(),
+          },
+        },
+      ],
+    };
+  }
+);
+
+server.registerPrompt(
+  'generate_component',
+  {
+    description: 'Generate a production-ready Hybrid Astro UI component',
+    argsSchema: {
+      component: z.string().describe('Component name'),
+    },
+  },
+  async ({ component }): Promise<GetPromptResult> => {
+    return {
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `
+Generate a PRODUCTION-READY "${component}" component for Hybrid Astro UI.
+
+Requirements:
+- Astro component (.astro)
+- Fully self-contained
+- Follow existing Hybrid Astro UI patterns and conventions
+- Prefer native HTML elements where appropriate
+- Do NOT invent new base components
+- Props typed using TypeScript
+- Accessible by default (ARIA, keyboard navigation, semantics)
+- No React
+- No unnecessary runtime JavaScript
+- Suitable for real-world usage, not a demo
+
+Icons:
+- Use icons from "lucide-astro" ONLY when they add value
+- Import icons explicitly, for example:
+  import CircleAlert from '@lucide/astro/icons/circle-alert';
+- Do NOT inline SVGs
+- Do NOT use other icon libraries
+
+Output:
+- Full component code only
+- No explanations
+            `.trim(),
+          },
+        },
+      ],
+    };
+  }
+);
+
 async function main() {
   const transport = new StdioServerTransport();
 
@@ -162,3 +245,29 @@ async function main() {
 main().catch(err => {
   process.exit(1);
 });
+
+// Dev mode:
+// {
+//   "mcpServers": {
+//     "hybrid-astro-ui-mcp": {
+//       "args": [
+//         "-e",
+//         "node",
+//         "/home/rosbeldev/astro-ui-components/cli/dist/mcp.mjs"
+//       ],
+//       "command": "wsl",
+//       "disabled": false
+//     }
+//   }
+// }
+
+// Prod:
+// {
+//   "mcpServers": {
+//     "hybrid-astro-ui-mcp": {
+//       "command": "npx",
+//       "args": ["--package", "hybrid-astro-ui", "hybrid-astro-ui-mcp"],
+//       "disabled": false
+//     }
+//   }
+// }

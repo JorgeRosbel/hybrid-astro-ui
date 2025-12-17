@@ -1,0 +1,24 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+  value: string | number | boolean | null | undefined;
+}
+
+const { class: className, value } = Astro.props as Props;
+---
+
+<li
+  class={cls(
+    'hover:bg-secondary rounded text-sm flex items-center justify-between [&_div]:invisible',
+    className
+  )}
+  data-option
+  data-value={value}
+>
+  <span>
+    <slot />
+  </span>
+  <div class="rounded-full h-2 w-2 bg-foreground opacity-85"></div>
+</li>

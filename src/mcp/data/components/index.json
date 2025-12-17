@@ -121,6 +121,11 @@
       "name": "tooltip",
       "title": "Tooltip",
       "description": "A lightweight, direction-aware tooltip component designed for Astro projects. Fully themeable, compatible with custom orientations, and built to enhance UX with accessible, hover-based hints — all without requiring JavaScript by default."
+    },
+    {
+      "name": "select",
+      "title": "Sooltip",
+      "description": "A fully customizable select component for Astro projects, built with composable primitives and minimal JavaScript. Supports grouped options, icons, keyboard navigation, and accessible semantics by default. Designed to be flexible, themeable, and production-ready."
     }
   ]
 }

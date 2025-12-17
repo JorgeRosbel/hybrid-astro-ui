@@ -12,7 +12,7 @@
         }
     },
     "usage": {
-        "import": "import { Select, SelectContent, SelectGroup, SelectLabel, SelectOption, SelectTrigger } from \"@/src/components/select\"",
+        "import": "import { Select, SelectContent, SelectGroup, SelectLabel, SelectOption, SelectTrigger } from \"@/src/components/hybrid-astro-ui/select\"",
         "examples": [
             {
                 "title": "Basic select",

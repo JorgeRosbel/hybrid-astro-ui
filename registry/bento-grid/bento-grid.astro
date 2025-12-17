@@ -1,0 +1,39 @@
+---
+import { cls } from '@/src/lib/utils';
+
+type Cols = 1 | 2 | 3 | 4 | 5 | 6;
+type Gap = 'gap-2' | 'gap-4' | 'gap-6';
+
+interface Props {
+  cols?: Cols;
+  smCols?: Cols;
+  mdCols?: Cols;
+  lgCols?: Cols;
+  gap?: Gap;
+  class?: string;
+}
+
+const { cols = 3, smCols, mdCols, lgCols, gap = 'gap-4', class: className } = Astro.props as Props;
+
+const GRID_COLS = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-2',
+  3: 'grid-cols-3',
+  4: 'grid-cols-4',
+  5: 'grid-cols-5',
+  6: 'grid-cols-6',
+} as const;
+
+const gridClass = [
+  GRID_COLS[cols],
+  smCols && `sm:${GRID_COLS[smCols]}`,
+  mdCols && `md:${GRID_COLS[mdCols]}`,
+  lgCols && `lg:${GRID_COLS[lgCols]}`,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={cls(`grid ${gridClass} ${gap} auto-rows-fr not-prose`, className)}>
+  <slot />
+</div>

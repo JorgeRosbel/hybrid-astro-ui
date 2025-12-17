@@ -1,0 +1,70 @@
+---
+import { cls } from '@/src/lib/utils';
+
+type Span = 1 | 2 | 3 | 4 | 5 | 6;
+
+interface Props {
+  span?: Span;
+  row?: Span;
+
+  sm?: Span;
+  md?: Span;
+  lg?: Span;
+
+  smRow?: Span;
+  mdRow?: Span;
+  lgRow?: Span;
+  class?: string;
+}
+
+const {
+  span = 1,
+  row = 1,
+  class: className,
+  sm,
+  md,
+  lg,
+  smRow,
+  mdRow,
+  lgRow,
+} = Astro.props as Props;
+
+const COL_SPAN = {
+  1: 'col-span-1',
+  2: 'col-span-2',
+  3: 'col-span-3',
+  4: 'col-span-4',
+  5: 'col-span-5',
+  6: 'col-span-6',
+} as const;
+
+const ROW_SPAN = {
+  1: 'row-span-1',
+  2: 'row-span-2',
+  3: 'row-span-3',
+  4: 'row-span-4',
+  5: 'row-span-5',
+  6: 'row-span-6',
+} as const;
+
+const classMerge = [
+  COL_SPAN[span],
+  ROW_SPAN[row],
+
+  sm && `sm:${COL_SPAN[sm]}`,
+  md && `md:${COL_SPAN[md]}`,
+  lg && `lg:${COL_SPAN[lg]}`,
+
+  smRow && `sm:${ROW_SPAN[smRow]}`,
+  mdRow && `md:${ROW_SPAN[mdRow]}`,
+  lgRow && `lg:${ROW_SPAN[lgRow]}`,
+
+  'rounded-xl bg-muted p-4',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={cls(classMerge, className)}>
+  <slot />
+</div>

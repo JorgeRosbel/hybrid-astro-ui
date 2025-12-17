@@ -1,0 +1,160 @@
+{
+    "title": "BentoGrid",
+    "name": "bento-grid",
+    "description": "A responsive grid layout system for creating bento-style layouts with zero runtime JavaScript. Features flexible column and row spanning, responsive breakpoints, and customizable gaps. Perfect for building modern, dashboard-style interfaces.",
+    "category": "components",
+    "installation": {
+        "cli": {
+            "npm": "npx hybrid-astro-ui@latest add bento-grid",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add bento-grid",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add bento-grid",
+            "bun": "bunx hybrid-astro-ui@latest add bento-grid"
+        }
+    },
+    "usage": {
+        "import": "import { BentoGrid, BentoItem } from \"@/src/components/hybrid-astro-ui/bento-grid\"",
+        "examples": [
+            {
+                "title": "Basic grid",
+                "description": "Simple 3-column grid layout",
+                "code": "<BentoGrid cols={3} gap=\"gap-4\">\n    <BentoItem>\n        <div>Item 1</div>\n    </BentoItem>\n    <BentoItem>\n        <div>Item 2</div>\n    </BentoItem>\n    <BentoItem>\n        <div>Item 3</div>\n    </BentoItem>\n</BentoGrid>"
+            },
+            {
+                "title": "Spanning items",
+                "description": "Grid with items that span multiple columns and rows",
+                "code": "<BentoGrid cols={3} gap=\"gap-4\">\n    <BentoItem span={2}>\n        <div>Wide item (2 columns)</div>\n    </BentoItem>\n    <BentoItem row={2}>\n        <div>Tall item (2 rows)</div>\n    </BentoItem>\n    <BentoItem span={2} row={2}>\n        <div>Large item (2x2)</div>\n    </BentoItem>\n</BentoGrid>"
+            },
+            {
+                "title": "Responsive layout",
+                "description": "Grid with responsive breakpoints",
+                "code": "<BentoGrid cols={2} mdCols={3} lgCols={4} gap=\"gap-6\">\n    <BentoItem span={2} md={3} lg={4}>\n        <div>Hero section</div>\n    </BentoItem>\n    <BentoItem>\n        <div>Feature 1</div>\n    </BentoItem>\n    <BentoItem>\n        <div>Feature 2</div>\n    </BentoItem>\n    <BentoItem span={2}>\n        <div>Content section</div>\n    </BentoItem>\n</BentoGrid>"
+            }
+        ]
+    },
+    "component_structure": {
+        "files": [
+            {
+                "name": "bento-grid.astro",
+                "type": "astro",
+                "description": "Main BentoGrid container component with responsive column configuration"
+            },
+            {
+                "name": "bento-item.astro",
+                "type": "astro",
+                "description": "BentoItem component for individual grid items with spanning capabilities"
+            },
+            {
+                "name": "index.ts",
+                "type": "typescript",
+                "description": "Export file for BentoGrid and BentoItem components"
+            }
+        ]
+    },
+    "props": [
+        {
+            "name": "BentoGrid",
+            "props": [
+                {
+                    "name": "cols",
+                    "description": "Number of columns on mobile",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "3"
+                },
+                {
+                    "name": "smCols",
+                    "description": "Number of columns on small screens (640px+)",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "mdCols",
+                    "description": "Number of columns on medium screens (768px+)",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "lgCols",
+                    "description": "Number of columns on large screens (1024px+)",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "gap",
+                    "description": "Spacing between grid items",
+                    "type": "'gap-2' - 'gap-4' - 'gap-6'",
+                    "default": "'gap-4'"
+                },
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "BentoItem",
+            "props": [
+                {
+                    "name": "span",
+                    "description": "Number of columns to span on mobile",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "1"
+                },
+                {
+                    "name": "row",
+                    "description": "Number of rows to span on mobile",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "1"
+                },
+                {
+                    "name": "sm",
+                    "description": "Column span on small screens",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "md",
+                    "description": "Column span on medium screens",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "lg",
+                    "description": "Column span on large screens",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "smRow",
+                    "description": "Row span on small screens",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "mdRow",
+                    "description": "Row span on medium screens",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "lgRow",
+                    "description": "Row span on large screens",
+                    "type": "1 - 2 - 3 - 4 - 5 - 6",
+                    "default": "-"
+                },
+                {
+                    "name": "class",
+                    "description": "Additional custom classes",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        }
+    ],
+    "sourceCodeOfComponts": {
+        "bento-grid.astro": "---\nimport { cls } from '@/src/lib/utils';\n\ntype Cols = 1 | 2 | 3 | 4 | 5 | 6;\ntype Gap = 'gap-2' | 'gap-4' | 'gap-6';\n\ninterface Props {\n  cols?: Cols;\n  smCols?: Cols;\n  mdCols?: Cols;\n  lgCols?: Cols;\n  gap?: Gap;\n  class?:string;\n}\n\nconst {\n  cols = 3,\n  smCols,\n  mdCols,\n  lgCols,\n  gap = 'gap-4',\n  class:className\n} = Astro.props as Props;\n\nconst GRID_COLS = {\n  1: 'grid-cols-1',\n  2: 'grid-cols-2',\n  3: 'grid-cols-3',\n  4: 'grid-cols-4',\n  5: 'grid-cols-5',\n  6: 'grid-cols-6',\n} as const;\n\nconst gridClass = [\n  GRID_COLS[cols],\n  smCols && `sm:${GRID_COLS[smCols]}`,\n  mdCols && `md:${GRID_COLS[mdCols]}`,\n  lgCols && `lg:${GRID_COLS[lgCols]}`,\n].filter(Boolean).join(' ');\n---\n<div class={cls(`grid ${gridClass} ${gap} auto-rows-fr not-prose`,className)}>\n  <slot />\n</div>",
+        "bento-item.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ntype Span = 1 | 2 | 3 | 4 | 5 | 6;\n\ninterface Props {\n    span?: Span;\n    row?: Span;\n\n    sm?: Span;\n    md?: Span;\n    lg?: Span;\n\n    smRow?: Span;\n    mdRow?: Span;\n    lgRow?: Span;\n    class?: string;\n}\n\nconst {\n    span = 1,\n    row = 1,\n    class: className,\n    sm,\n    md,\n    lg,\n    smRow,\n    mdRow,\n    lgRow,\n} = Astro.props as Props;\n\n\n\nconst COL_SPAN = {\n    1: \"col-span-1\",\n    2: \"col-span-2\",\n    3: \"col-span-3\",\n    4: \"col-span-4\",\n    5: \"col-span-5\",\n    6: \"col-span-6\",\n} as const;\n\nconst ROW_SPAN = {\n    1: \"row-span-1\",\n    2: \"row-span-2\",\n    3: \"row-span-3\",\n    4: \"row-span-4\",\n    5: \"row-span-5\",\n    6: \"row-span-6\",\n} as const;\n\nconst classMerge = [\n    COL_SPAN[span],\n    ROW_SPAN[row],\n\n    sm && `sm:${COL_SPAN[sm]}`,\n    md && `md:${COL_SPAN[md]}`,\n    lg && `lg:${COL_SPAN[lg]}`,\n\n    smRow && `sm:${ROW_SPAN[smRow]}`,\n    mdRow && `md:${ROW_SPAN[mdRow]}`,\n    lgRow && `lg:${ROW_SPAN[lgRow]}`,\n\n    \"rounded-xl bg-muted p-4\",\n]\n    .filter(Boolean)\n    .join(\" \");\n---\n\n<div class={cls(classMerge, className)}>\n    <slot />\n</div>",
+        "index.ts": "export { default as BentoGrid } from \"./bento-grid.astro\"\nexport { default as BentoItem } from \"./bento-item.astro\""
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "bento-grid",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/bento-grid/index.ts"
+    },
+    {
+      "from": "bento-grid.astro",
+      "to": "src/components/hybrid-astro-ui/bento-grid/bento-grid.astro"
+    },
+    {
+      "from": "bento-item.astro",
+      "to": "src/components/hybrid-astro-ui/bento-grid/bento-item.astro"
+    }
+  ]
+}

@@ -60,6 +60,8 @@ jobs:
 
       - name: Publish to NPM
         if: steps.npm.outputs.exists != 'true'
+        env:
+          HUSKY: 0
         run: npm publish --provenance --access public
 
       - name: Publish skipped (already published)

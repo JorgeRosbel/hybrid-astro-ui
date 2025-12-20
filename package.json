@@ -19,7 +19,7 @@
     "test:coverage": "vitest --coverage",
     "test:v": "vitest --reporter verbose",
     "push": "git add . && gitzen commit -y && git push && pnpm run build:dev",
-    "publish": "npm publish --access public",
+    "publish:npm": "npm publish --access public",
     "build:registry": "npx tsx scripts/buildJSONComponent.ts"
   },
   "lint-staged": {

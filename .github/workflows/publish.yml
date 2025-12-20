@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  release:
+    if: ${{ github.repository_owner == 'JorgeRosbel' }}
+    name: Release Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.6
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Update npm for OIDC support
+        run: npm install -g npm@latest
+
+      - name: Install NPM Dependencies
+        run: pnpm install
+
+      - name: Build the package
+        run: pnpm run build
+
+      - name: Publish to NPM
+        run: npm publish --provenance --access public
+
+

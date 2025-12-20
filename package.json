@@ -1,6 +1,6 @@
 {
   "name": "hybrid-astro-ui",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Hybrid-Astro-UI using a hybrid model: zero-JS Astro + progressive enhancement with web components.",
   "bin": {
     "hybrid-astro-ui": "dist/cli.mjs",

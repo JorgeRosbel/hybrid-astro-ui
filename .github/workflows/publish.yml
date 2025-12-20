@@ -41,7 +41,27 @@ jobs:
       - name: Build the package
         run: pnpm run build
 
+      - name: Read package name/version
+        id: pkg
+        run: |
+          echo "name=$(node -p \"require('./package.json').name\")" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p \"require('./package.json').version\")" >> "$GITHUB_OUTPUT"
+
+      - name: Check if version already exists on npm
+        id: npm
+        run: |
+          if npm view "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" version >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish to NPM
+        if: steps.npm.outputs.exists != 'true'
         run: npm publish --provenance --access public
+
+      - name: Publish skipped (already published)
+        if: steps.npm.outputs.exists == 'true'
+        run: echo "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }} already exists on npm; skipping publish."
 
 

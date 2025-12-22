@@ -1,0 +1,33 @@
+{
+  "name": "breadcrumb",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/breadcrumb/index.ts"
+    },
+    {
+      "from": "breadcrumb-item.astro",
+      "to": "src/components/hybrid-astro-ui/breadcrumb/breadcrumb-item.astro"
+    },
+    {
+      "from": "breadcrumb-link.astro",
+      "to": "src/components/hybrid-astro-ui/breadcrumb/breadcrumb-link.astro"
+    },
+    {
+      "from": "breadcrumb-location.astro",
+      "to": "src/components/hybrid-astro-ui/breadcrumb/breadcrumb-location.astro"
+    },
+    {
+      "from": "breadcrumb-popover.astro",
+      "to": "src/components/hybrid-astro-ui/breadcrumb/breadcrumb-popover.astro"
+    },
+    {
+      "from": "breadcrumb-separator.astro",
+      "to": "src/components/hybrid-astro-ui/breadcrumb/breadcrumb-separator.astro"
+    },
+    {
+      "from": "breadcrumb.astro",
+      "to": "src/components/hybrid-astro-ui/breadcrumb/breadcrumb.astro"
+    }
+  ]
+}

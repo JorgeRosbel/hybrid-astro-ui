@@ -1,0 +1,13 @@
+{
+  "name": "formatted-date",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/formatted-date/index.ts"
+    },
+    {
+      "from": "formatted-date.astro",
+      "to": "src/components/hybrid-astro-ui/formatted-date/formatted-date.astro"
+    }
+  ]
+}

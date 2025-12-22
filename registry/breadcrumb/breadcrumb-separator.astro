@@ -1,0 +1,13 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+  variant?: 'default' | 'arrow' | 'chevron';
+}
+const { class: className, variant = 'default' } = Astro.props as Props;
+---
+
+<span class={cls('opacity-60', className)}>
+  {variant === 'default' ? '/' : variant === 'arrow' ? '→' : '>'}
+</span>

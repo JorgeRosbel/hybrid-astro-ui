@@ -1,0 +1,28 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props as Props;
+---
+
+<div class={cls('relative flex items-center group', className)}>
+  <span class="sr-only">Open breadcrumb popover</span>
+  <div class="grid grid-cols-3 gap-0.5 cursor-pointer place-items-center group">
+    {
+      Array.from({ length: 3 }).map(() => (
+        <div class="w-1 h-1 bg-current opacity-50 rounded-full group-hover:opacity-100 transition-all" />
+      ))
+    }
+  </div>
+  <input type="checkbox" class="absolute w-full h-full opacity-0 z-10 cursor-pointer peer" />
+  <div
+    class=`grid grid-cols-1 [&_div]:px-2 [&_div]:py-1 [&_div]:hover:bg-secondary peer-checked:visible 
+    invisible opacity-0 peer-checked:opacity-100 transition-all duration-200 scale-80 peer-checked:scale-100
+    [&_div]:w-full [&_div]:rounded-sm  place-items-center gap-2 absolute top-full mt-2 
+    left-1/2 -translate-x-1/2 w-max p-2 rounded-md bg-muted border backdrop-blur-sm`
+  >
+    <slot />
+  </div>
+</div>

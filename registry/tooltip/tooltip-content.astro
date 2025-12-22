@@ -12,7 +12,7 @@ const { class: className, orientation = 'bottom' } = Astro.props as Props;
 <div
   class={cls(
     `transition-all duration-200 absolute text-[0.8rem] translate-y-2 opacity-40 p-2 border rounded 
-    w-max bg-muted invisible group-hover:visible  group-hover:opacity-100 z-50`,
+    w-max bg-muted invisible group-hover:visible  group-hover:opacity-100 z-50 group-hover:scale-100 scale-90`,
 
     orientation === 'bottom' && 'left-1/2 -translate-x-1/2 top-full',
 

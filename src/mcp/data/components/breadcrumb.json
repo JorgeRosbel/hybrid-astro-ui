@@ -1,0 +1,168 @@
+{
+    "title": "Breadcrumb",
+    "name": "breadcrumb",
+    "description": "A navigational component that displays the user's current location within a website's hierarchy. It provides links back to each previous page the user navigated through, enhancing usability and site navigation. Perfect for improving user experience in Astro projects by clearly indicating the path taken to reach the current page.",
+    "category": "components",
+    "installation": {
+        "cli": {
+            "npm": "npx hybrid-astro-ui@latest add breadcrumb",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add breadcrumb",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add breadcrumb",
+            "bun": "bunx hybrid-astro-ui@latest add breadcrumb"
+        }
+    },
+    "usage": {
+        "import": "import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbLocation, BreadcrumbPopover } from \"@/src/components/hybrid-astro-ui/breadcrumb\"",
+        "examples": [
+            {
+                "title": "Basic breadcrumb",
+                "description": "Breadcrumb navigation with separators and current location.",
+                "code": "<Breadcrumb>\n  <BreadcrumbItem>\n    <BreadcrumbLink href=\"/\">Home</BreadcrumbLink>\n  </BreadcrumbItem>\n  <BreadcrumbSeparator />\n  <BreadcrumbItem>\n    <BreadcrumbLink href=\"/components\">Components</BreadcrumbLink>\n  </BreadcrumbItem>\n  <BreadcrumbSeparator />\n  <BreadcrumbItem>\n    <BreadcrumbLocation>Breadcrumb</BreadcrumbLocation>\n  </BreadcrumbItem>\n</Breadcrumb>"
+            },
+            {
+                "title": "With overflow popover",
+                "description": "Use BreadcrumbPopover to collapse intermediate items into a popover.",
+                "code": "<Breadcrumb>\n  <BreadcrumbItem>\n    <BreadcrumbLink href=\"/\">Home</BreadcrumbLink>\n  </BreadcrumbItem>\n  <BreadcrumbSeparator />\n  <BreadcrumbItem>\n    <BreadcrumbLink href=\"/components\">Components</BreadcrumbLink>\n  </BreadcrumbItem>\n  <BreadcrumbSeparator />\n  <BreadcrumbPopover>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"/components/formatted-date\">FormattedDate</BreadcrumbLink>\n    </BreadcrumbItem>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"/components/button\">Button</BreadcrumbLink>\n    </BreadcrumbItem>\n  </BreadcrumbPopover>\n  <BreadcrumbSeparator />\n  <BreadcrumbItem>\n    <BreadcrumbLocation>Breadcrumb</BreadcrumbLocation>\n  </BreadcrumbItem>\n</Breadcrumb>"
+            },
+            {
+                "title": "Separator variants",
+                "description": "Change the separator glyph via the variant prop.",
+                "code": "<Breadcrumb>\n  <BreadcrumbItem><BreadcrumbLink href=\"/\">Home</BreadcrumbLink></BreadcrumbItem>\n  <BreadcrumbSeparator variant=\"chevron\" />\n  <BreadcrumbItem><BreadcrumbLink href=\"/docs\">Docs</BreadcrumbLink></BreadcrumbItem>\n  <BreadcrumbSeparator variant=\"arrow\" />\n  <BreadcrumbItem><BreadcrumbLocation>API</BreadcrumbLocation></BreadcrumbItem>\n</Breadcrumb>"
+            }
+        ]
+    },
+    "component_structure": {
+        "files": [
+            {
+                "name": "breadcrumb.astro",
+                "type": "astro",
+                "description": "Breadcrumb container (nav)"
+            },
+            {
+                "name": "breadcrumb-item.astro",
+                "type": "astro",
+                "description": "Breadcrumb item wrapper"
+            },
+            {
+                "name": "breadcrumb-link.astro",
+                "type": "astro",
+                "description": "Breadcrumb link (anchor)"
+            },
+            {
+                "name": "breadcrumb-separator.astro",
+                "type": "astro",
+                "description": "Separator glyph between items"
+            },
+            {
+                "name": "breadcrumb-location.astro",
+                "type": "astro",
+                "description": "Current location text"
+            },
+            {
+                "name": "breadcrumb-popover.astro",
+                "type": "astro",
+                "description": "Overflow popover for collapsed items"
+            },
+            {
+                "name": "index.ts",
+                "type": "typescript",
+                "description": "Exports for breadcrumb components"
+            }
+        ]
+    },
+    "props": [
+        {
+            "name": "Breadcrumb",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the nav container.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "BreadcrumbItem",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the item wrapper.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "BreadcrumbLink",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the link.",
+                    "type": "string",
+                    "default": "-"
+                },
+                {
+                    "name": "href",
+                    "description": "Link destination.",
+                    "type": "string",
+                    "default": "required"
+                },
+                {
+                    "name": "...rest",
+                    "description": "Any other anchor attributes.",
+                    "type": "HTMLAttributes<'a'>",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "BreadcrumbSeparator",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the separator.",
+                    "type": "string",
+                    "default": "-"
+                },
+                {
+                    "name": "variant",
+                    "description": "Separator style.",
+                    "type": "\"default\" | \"arrow\" | \"chevron\"",
+                    "default": "\"default\""
+                }
+            ]
+        },
+        {
+            "name": "BreadcrumbLocation",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the current location text.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "BreadcrumbPopover",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the popover wrapper.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        }
+    ],
+    "sourceCodeOfComponts": {
+        "breadcrumb.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n}\nconst { class: className } = Astro.props as Props;\n---\n\n\n<nav aria-label=\"breadcrumb\" data-slot=\"breadcrumb\" class={cls(\"inline-flex flex-wrap font-normal gap-2 not-prose text-[0.87rem]\", className)}>\n    <slot />\n</nav>",
+        "breadcrumb-item.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n}\nconst { class: className } = Astro.props as Props;\n---\n\n\n<div data-slot=\"breadcrumb-item\" class={cls(\"inline-flex items-center max-w-40 md:max-w-sm\", className)}>\n    <slot />\n</div> ",
+        "breadcrumb-link.astro": "---\nimport { cls } from \"@/src/lib/utils\";\nimport { type HTMLAttributes } from \"astro/types\";\n\ninterface Props extends HTMLAttributes<\"a\"> {\n    class?: string;\n}\nconst { class: className, ...rest } = Astro.props as Props;\n---\n\n<a data-slot=\"breadcrumb-link\" class={cls(\"opacity-60 line-clamp-1 w-full hover:underline underline-offset-3 hover:opacity-100 transition-opacity duration-200\", className)} {...rest}>\n    <slot />\n</a>",
+        "breadcrumb-separator.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n    variant?: \"default\" | \"arrow\" | \"chevron\";\n}\nconst { class: className, variant = \"default\" } = Astro.props as Props;\n---\n\n<span class={cls(\"opacity-60\", className)}>\n    {variant === \"default\" ? \"/\" : variant === \"arrow\" ? \"→\" : \">\"}\n</span>",
+        "breadcrumb-location.astro": "---\nimport { cls } from \"@/src/lib/utils\";\ninterface Props {\n    class?: string;\n}\nconst { class: className } = Astro.props as Props;\n---\n\n<span class={cls(\"line-clamp-1\", className)}>\n    <slot />\n</span>",
+        "breadcrumb-popover.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n}\nconst { class: className } = Astro.props as Props;\n---\n\n<div class={cls(\"relative flex items-center group\", className)}>\n    <span class=\"sr-only\">Open breadcrumb popover</span>\n    <div class=\"grid grid-cols-3 gap-0.5 cursor-pointer  place-items-center group\">\n        {Array.from({ length: 3 }).map(() => (\n            <div class=\"w-1 h-1 bg-current opacity-50 rounded-full group-hover:opacity-100 transition-all\"></div>\n        ))}\n    </div>\n    <input type=\"checkbox\" class=\"absolute w-full h-full opacity-0 z-10 cursor-pointer peer\" />\n    <div class=`grid grid-cols-1 [&_div]:px-2 [&_div]:py-1 [&_div]:hover:bg-secondary peer-checked:visible \n    invisible opacity-0 peer-checked:opacity-100 transition-all duration-200 scale-80 peer-checked:scale-100\n    [&_div]:w-full [&_div]:rounded-sm  place-items-center gap-2 absolute top-full mt-2 \n    left-1/2 -translate-x-1/2 w-max p-2 rounded-md bg-muted border backdrop-blur-sm`>\n        <slot />\n    </div>\n</div>",
+        "index.ts": "export { default as Breadcrumb } from \"./breadcrumb.astro\";\nexport { default as BreadcrumbItem } from \"./breadcrumb-item.astro\";\nexport { default as BreadcrumbLink } from \"./breadcrumb-link.astro\";\nexport { default as BreadcrumbSeparator } from \"./breadcrumb-separator.astro\";\nexport { default as BreadcrumbLocation } from \"./breadcrumb-location.astro\";\nexport { default as BreadcrumbPopover } from \"./breadcrumb-popover.astro\";"
+    }
+}

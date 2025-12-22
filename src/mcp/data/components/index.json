@@ -136,6 +136,16 @@
       "name": "bento-grid",
       "title": "BentoGrid",
       "description": "A responsive grid layout system for creating bento-style layouts with zero runtime JavaScript. Features flexible column and row spanning, responsive breakpoints, and customizable gaps. Perfect for building modern, dashboard-style interfaces."
+    },
+    {
+      "name": "formatted-date",
+      "title": "FormattedDate",
+      "description": "A versatile date formatting component that displays dates in various human-readable formats. Supports localization and customization options to fit different regional date styles. Ideal for enhancing user experience by presenting dates clearly and consistently across your Astro projects."
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "description": "A simple and accessible breadcrumb navigation component that helps users understand their location within a website's hierarchy. Supports customizable separators and responsive design for optimal usability across devices."
     }
   ]
 }

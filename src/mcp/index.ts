@@ -33,6 +33,8 @@ const componentFiles = [
   'select.json',
   'lite-yt.json',
   'bento-grid.json',
+  'breadcrumb.json',
+  'formatted-date.json',
 ];
 
 const server = new McpServer({

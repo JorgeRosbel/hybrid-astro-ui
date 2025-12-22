@@ -1,0 +1,117 @@
+---
+import { cls } from '@/src/lib/utils';
+
+type SupportedLocale =
+  | 'es'
+  | 'es-ES'
+  | 'es-MX'
+  | 'es-AR'
+  | 'es-CL'
+  | 'es-CO'
+  | 'es-PE'
+  | 'es-VE'
+  | 'es-UY'
+  | 'es-EC'
+  | 'es-US'
+  | 'en'
+  | 'en-US'
+  | 'en-GB'
+  | 'en-CA'
+  | 'en-AU'
+  | 'en-IN'
+  | 'fr'
+  | 'fr-FR'
+  | 'fr-CA'
+  | 'fr-BE'
+  | 'fr-CH'
+  | 'de'
+  | 'de-DE'
+  | 'de-AT'
+  | 'de-CH'
+  | 'it'
+  | 'it-IT'
+  | 'it-CH'
+  | 'pt'
+  | 'pt-PT'
+  | 'pt-BR'
+  | 'zh'
+  | 'zh-CN'
+  | 'zh-TW'
+  | 'zh-HK'
+  | 'ja'
+  | 'ja-JP'
+  | 'ko'
+  | 'ko-KR'
+  | 'ru'
+  | 'ru-RU';
+
+interface Props {
+  date: Date | string | number;
+  locale?: SupportedLocale;
+  format?: 'short' | 'medium' | 'long' | 'full';
+  showTime?: boolean;
+  options?: Intl.DateTimeFormatOptions;
+  timeZone?: string;
+  fallback?: string;
+  class?: string;
+}
+
+const {
+  date,
+  class: className,
+  locale = ((Astro as any)?.currentLocale as SupportedLocale | undefined) ?? 'en-US',
+  format,
+  showTime = false,
+  options,
+  timeZone,
+  fallback = '—',
+} = Astro.props as Props;
+
+const parsedDate = date instanceof Date ? date : new Date(date);
+const isValidDate = !Number.isNaN(parsedDate.getTime());
+
+const iso = isValidDate ? parsedDate.toISOString() : null;
+
+const formatPreset: Intl.DateTimeFormatOptions | null = format ? { dateStyle: format } : null;
+
+const defaultOptions: Intl.DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+};
+
+const baseOptions: Intl.DateTimeFormatOptions = {
+  ...(timeZone ? { timeZone } : {}),
+  ...(formatPreset ?? defaultOptions),
+};
+
+const timeOptions: Intl.DateTimeFormatOptions = showTime
+  ? formatPreset
+    ? { timeStyle: 'short' }
+    : { hour: '2-digit', minute: '2-digit' }
+  : {};
+
+const finalOptions: Intl.DateTimeFormatOptions = {
+  ...baseOptions,
+  ...timeOptions,
+  ...(options ?? {}),
+};
+
+const formatted = isValidDate
+  ? showTime
+    ? parsedDate.toLocaleString(locale, finalOptions)
+    : parsedDate.toLocaleDateString(locale, finalOptions)
+  : fallback;
+
+const title = isValidDate
+  ? parsedDate.toLocaleString(locale, {
+      ...(timeZone ? { timeZone } : {}),
+      dateStyle: 'full',
+      timeStyle: 'short',
+    })
+  : undefined;
+---
+
+<time class={cls(className)} datetime={iso ?? undefined} lang={locale} title={title}>
+  {formatted}
+</time>

@@ -1,0 +1,117 @@
+{
+    "title": "FormattedDate",
+    "name": "formatted-date",
+    "description": "A versatile date formatting component that displays dates in various human-readable formats. Supports localization and customization options to fit different regional date styles. Ideal for enhancing user experience by presenting dates clearly and consistently across your Astro projects.",
+    "category": "components",
+    "installation": {
+        "cli": {
+            "npm": "npx hybrid-astro-ui@latest add formatted-date",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add formatted-date",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add formatted-date",
+            "bun": "bunx hybrid-astro-ui@latest add formatted-date"
+        }
+    },
+    "usage": {
+        "import": "import { FormattedDate } from \"@/src/components/hybrid-astro-ui/formatted-date\"",
+        "examples": [
+            {
+                "title": "Basic",
+                "description": "Render a localized date.",
+                "code": "<FormattedDate date={new Date(\"2025-12-22T15:30:00Z\")} locale=\"en-US\" />"
+            },
+            {
+                "title": "ISO string + time",
+                "description": "Use an ISO string input and include time.",
+                "code": "<FormattedDate date=\"2025-12-22T18:45:00Z\" locale=\"en-GB\" format=\"long\" showTime />"
+            },
+            {
+                "title": "Timestamp (ms)",
+                "description": "Use a numeric timestamp in milliseconds.",
+                "code": "<FormattedDate date={Date.now() - 1000 * 60 * 35} locale=\"en-US\" format=\"medium\" showTime />"
+            },
+            {
+                "title": "Force timezone (UTC)",
+                "description": "Render in a fixed timezone for consistent output.",
+                "code": "<FormattedDate date=\"2025-12-22T00:00:00Z\" locale=\"en-GB\" timeZone=\"UTC\" showTime />"
+            },
+            {
+                "title": "Advanced Intl options",
+                "description": "Override formatting using Intl.DateTimeFormatOptions.",
+                "code": "<FormattedDate date=\"2025-12-22T12:05:00Z\" locale=\"en-US\" showTime options={{ weekday: \"short\", month: \"long\", hour12: true }} />"
+            },
+            {
+                "title": "Invalid date fallback",
+                "description": "Show safe fallback text when the date is invalid.",
+                "code": "<FormattedDate date=\"not-a-date\" fallback=\"Date unavailable\" />"
+            }
+        ]
+    },
+    "component_structure": {
+        "files": [
+            {
+                "name": "formatted-date.astro",
+                "type": "astro",
+                "description": "FormattedDate component that renders a <time> element"
+            },
+            {
+                "name": "index.ts",
+                "type": "typescript",
+                "description": "Export file for the FormattedDate component"
+            }
+        ]
+    },
+    "props": [
+        {
+            "name": "date",
+            "description": "The date to render. Accepts a Date object, an ISO string, or a numeric timestamp in milliseconds.",
+            "type": "Date | string | number",
+            "default": "required"
+        },
+        {
+            "name": "locale",
+            "description": "Locale used by Intl formatting (e.g. en-US, en-GB, es-ES).",
+            "type": "SupportedLocale",
+            "default": "en-US"
+        },
+        {
+            "name": "format",
+            "description": "Convenience preset that maps to Intl dateStyle.",
+            "type": "short | medium | long | full",
+            "default": "-"
+        },
+        {
+            "name": "showTime",
+            "description": "When true, renders date + time.",
+            "type": "boolean",
+            "default": "false"
+        },
+        {
+            "name": "timeZone",
+            "description": "Forces a specific timezone (e.g. UTC, America/New_York).",
+            "type": "string",
+            "default": "-"
+        },
+        {
+            "name": "options",
+            "description": "Advanced Intl options; overrides default and preset formatting.",
+            "type": "Intl.DateTimeFormatOptions",
+            "default": "-"
+        },
+        {
+            "name": "fallback",
+            "description": "Text rendered when the date is invalid or cannot be parsed.",
+            "type": "string",
+            "default": "—"
+        },
+        {
+            "name": "class",
+            "description": "Additional CSS classes applied to the time element.",
+            "type": "string",
+            "default": "-"
+        }
+    ],
+    "sourceCodeOfComponts": {
+        "formatted-date.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ntype SupportedLocale =\n    | \"es\"\n    | \"es-ES\"\n    | \"es-MX\"\n    | \"es-AR\"\n    | \"es-CL\"\n    | \"es-CO\"\n    | \"es-PE\"\n    | \"es-VE\"\n    | \"es-UY\"\n    | \"es-EC\"\n    | \"es-US\"\n    | \"en\"\n    | \"en-US\"\n    | \"en-GB\"\n    | \"en-CA\"\n    | \"en-AU\"\n    | \"en-IN\"\n    | \"fr\"\n    | \"fr-FR\"\n    | \"fr-CA\"\n    | \"fr-BE\"\n    | \"fr-CH\"\n    | \"de\"\n    | \"de-DE\"\n    | \"de-AT\"\n    | \"de-CH\"\n    | \"it\"\n    | \"it-IT\"\n    | \"it-CH\"\n    | \"pt\"\n    | \"pt-PT\"\n    | \"pt-BR\"\n    | \"zh\"\n    | \"zh-CN\"\n    | \"zh-TW\"\n    | \"zh-HK\"\n    | \"ja\"\n    | \"ja-JP\"\n    | \"ko\"\n    | \"ko-KR\"\n    | \"ru\"\n    | \"ru-RU\";\n\ninterface Props {\n    date: Date | string | number;\n    locale?: SupportedLocale;\n    format?: \"short\" | \"medium\" | \"long\" | \"full\";\n    showTime?: boolean;\n    options?: Intl.DateTimeFormatOptions;\n    timeZone?: string;\n    fallback?: string;\n    class?: string;\n}\n\nconst {\n    date,\n    class: className,\n    locale = ((Astro as any)?.currentLocale as SupportedLocale | undefined) ?? \"en-US\",\n    format,\n    showTime = false,\n    options,\n    timeZone,\n    fallback = \"—\",\n} = Astro.props as Props;\n\nconst parsedDate = date instanceof Date ? date : new Date(date);\nconst isValidDate = !Number.isNaN(parsedDate.getTime());\n\nconst iso = isValidDate ? parsedDate.toISOString() : null;\n\nconst formatPreset: Intl.DateTimeFormatOptions | null = format\n    ? { dateStyle: format }\n    : null;\n\nconst defaultOptions: Intl.DateTimeFormatOptions = {\n    day: \"numeric\",\n    month: \"short\",\n    year: \"numeric\",\n};\n\nconst baseOptions: Intl.DateTimeFormatOptions = {\n    ...(timeZone ? { timeZone } : {}),\n    ...(formatPreset ?? defaultOptions),\n};\n\nconst timeOptions: Intl.DateTimeFormatOptions = showTime\n    ? formatPreset\n        ? { timeStyle: \"short\" }\n        : { hour: \"2-digit\", minute: \"2-digit\" }\n    : {};\n\nconst finalOptions: Intl.DateTimeFormatOptions = {\n    ...baseOptions,\n    ...timeOptions,\n    ...(options ?? {}),\n};\n\nconst formatted = isValidDate\n    ? showTime\n        ? parsedDate.toLocaleString(locale, finalOptions)\n        : parsedDate.toLocaleDateString(locale, finalOptions)\n    : fallback;\n\nconst title = isValidDate\n    ? parsedDate.toLocaleString(locale, {\n            ...(timeZone ? { timeZone } : {}),\n            dateStyle: \"full\",\n            timeStyle: \"short\",\n        })\n    : undefined;\n---\n\n<time class={cls(className)} datetime={iso ?? undefined} lang={locale} title={title}>\n    {formatted}\n</time>\n",
+        "index.ts": "export { default as FormattedDate } from \"./formatted-date.astro\";"
+    }
+}

@@ -1,0 +1,23 @@
+---
+import { cls } from '@/src/lib/utils';
+import { type HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'details'> {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props as Props;
+---
+
+<details
+  {...rest}
+  class={cls(
+    'border-b last:border-b-0 px-3 py-1',
+    'w-full group not-prose text-sm details-content:transition-[height,content-visibility]',
+    'details-content:transition-discrete details-content:[interpolate-size:allow-keywords] ',
+    'details-content:duration-300 details-content:ease-in-out',
+    className
+  )}
+>
+  <slot />
+</details>

@@ -1,0 +1,144 @@
+{
+    "title": "Workflow",
+    "name": "workflow",
+    "description": "A timeline-style component for visualizing sequential steps or processes. Perfect for onboarding flows, installation guides, and multi-step procedures. Features customizable icons, disabled states, and clean vertical layout.",
+    "category": "components",
+    "installation": {
+        "cli": {
+            "npm": "npx hybrid-astro-ui@latest add workflow",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add workflow",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add workflow",
+            "bun": "bunx hybrid-astro-ui@latest add workflow"
+        }
+    },
+    "usage": {
+        "import": "import { Workflow, WorkflowItem, WorkflowTitle, WorkflowDescription, WorkflowContent } from \"@/src/components/hybrid-astro-ui/workflow\"",
+        "examples": [
+            {
+                "title": "Basic workflow",
+                "description": "A simple step-by-step workflow with icons",
+                "code": "<Workflow>\n  <WorkflowItem>\n    <Key slot=\"wf-icon\" />\n    <WorkflowContent>\n      <WorkflowTitle>Step 1: Sign Up</WorkflowTitle>\n      <WorkflowDescription>\n        Create an account by providing your email and setting a password.\n      </WorkflowDescription>\n    </WorkflowContent>\n  </WorkflowItem>\n  <WorkflowItem>\n    <User slot=\"wf-icon\" />\n    <WorkflowContent>\n      <WorkflowTitle>Step 2: Profile Setup</WorkflowTitle>\n      <WorkflowDescription>\n        Fill in your personal details to complete your profile.\n      </WorkflowDescription>\n    </WorkflowContent>\n  </WorkflowItem>\n</Workflow>"
+            },
+            {
+                "title": "Disabled step",
+                "description": "Workflow with a disabled (future) step",
+                "code": "<Workflow>\n  <WorkflowItem>\n    <AppWindow slot=\"wf-icon\" />\n    <WorkflowContent>\n      <WorkflowTitle>Start Using the App</WorkflowTitle>\n      <WorkflowDescription>\n        Explore features and start using the application.\n      </WorkflowDescription>\n    </WorkflowContent>\n  </WorkflowItem>\n  <WorkflowItem disabled>\n    <BadgeCheck slot=\"wf-icon\" />\n    <WorkflowContent>\n      <WorkflowTitle>Upgrade to Premium</WorkflowTitle>\n      <WorkflowDescription>\n        Unlock additional features by upgrading to a premium plan.\n      </WorkflowDescription>\n    </WorkflowContent>\n  </WorkflowItem>\n</Workflow>"
+            }
+        ]
+    },
+    "component_structure": {
+        "files": [
+            {
+                "name": "workflow.astro",
+                "type": "astro",
+                "description": "Main Workflow wrapper component"
+            },
+            {
+                "name": "workflow-item.astro",
+                "type": "astro",
+                "description": "Individual workflow step with icon slot"
+            },
+            {
+                "name": "workflow-content.astro",
+                "type": "astro",
+                "description": "Content wrapper for step body"
+            },
+            {
+                "name": "workflow-title.astro",
+                "type": "astro",
+                "description": "Title text for each step"
+            },
+            {
+                "name": "workflow-description.astro",
+                "type": "astro",
+                "description": "Description text for each step"
+            },
+            {
+                "name": "index.ts",
+                "type": "typescript",
+                "description": "Export file for all Workflow subcomponents"
+            }
+        ]
+    },
+    "props": [
+        {
+            "name": "Workflow",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes for the workflow wrapper.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "WorkflowItem",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes for the item container (in addition to the default layout styles).",
+                    "type": "string",
+                    "default": "-"
+                },
+                {
+                    "name": "disabled",
+                    "description": "When enabled, applies a 'disabled' appearance: reduced opacity, disables interaction with pointer-events-none, and adds a dashed line-through decoration.",
+                    "type": "boolean",
+                    "default": "false"
+                }
+            ],
+            "slots": [
+                {
+                    "name": "wf-icon",
+                    "description": "Named slot for the step icon (e.g. a Lucide icon)."
+                },
+                {
+                    "name": "default",
+                    "description": "The step body content (commonly WorkflowContent)."
+                }
+            ]
+        },
+        {
+            "name": "WorkflowContent",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes for the step content wrapper.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "WorkflowTitle",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes for the title text.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "WorkflowDescription",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes for the description text.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        }
+    ],
+    "sourceCodeOfComponts": {
+        "workflow.astro": "---\nimport { cls } from \"@/src/lib/utils\";\ninterface Props {\n    class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div class={cls(\"\", className)>\n    <slot />\n</div>",
+        "workflow-item.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n    disabled?: boolean;\n}\n\nconst { class: className, disabled } = Astro.props as Props;\n---\n\n<div class={cls(\n    \"relative pl-2 pb-3 pt-0\",\n    \"border-l-2 border-dashed  border-foreground/60 px-4 not-prose mx-3 last:border-0\",\n    disabled && \"opacity-50 pointer-events-none line-through decoration-dashed\",\n    className)}>\n    <div class=\"w-8 h-8 rounded-full [&_svg]:w-4 [&_svg]:h-4  [&_svg]:text-foreground border-2 flex items-center justify-center border-primary  absolute left-0 -translate-x-1/2 bg-background top-0\">\n     <slot name=\"wf-icon\" />\n    </div>\n    <div class=\"pl-3\">\n        <slot />\n    </div>\n</div>",
+        "workflow-content.astro": "---\nimport { cls } from \"@/src/lib/utils\";\ninterface Props {\n    class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div class={cls(\"\", className)>\n    <slot />\n</div>",
+        "workflow-title.astro": "---\nimport { cls } from \"@/src/lib/utils\";\ninterface Props {\n    class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div class={cls(\"font-semibold\", className)>\n    <slot />\n</div>",
+        "workflow-description.astro": "---\nimport { cls } from \"@/src/lib/utils\";\ninterface Props {\n    class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div class={cls(\"font-normal text-sm opacity-80 pt-1 pb-2\", className)>\n    <slot />\n</div>",
+        "index.ts": "export { default as Workflow } from \"./workflow.astro\";\nexport { default as WorkflowItem } from \"./workflow-item.astro\";\nexport { default as WorkflowTitle } from \"./workflow-title.astro\";\nexport { default as WorkflowDescription } from \"./workflow-description.astro\";\nexport { default as WorkflowContent } from \"./workflow-content.astro\";"
+    }
+}

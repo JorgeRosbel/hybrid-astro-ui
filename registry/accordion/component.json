@@ -1,0 +1,21 @@
+{
+  "name": "accordion",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/accordion/index.ts"
+    },
+    {
+      "from": "accordion-content.astro",
+      "to": "src/components/hybrid-astro-ui/accordion/accordion-content.astro"
+    },
+    {
+      "from": "accordion-trigger.astro",
+      "to": "src/components/hybrid-astro-ui/accordion/accordion-trigger.astro"
+    },
+    {
+      "from": "accordion.astro",
+      "to": "src/components/hybrid-astro-ui/accordion/accordion.astro"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "workflow",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/workflow/index.ts"
+    },
+    {
+      "from": "workflow-content.astro",
+      "to": "src/components/hybrid-astro-ui/workflow/workflow-content.astro"
+    },
+    {
+      "from": "workflow-description.astro",
+      "to": "src/components/hybrid-astro-ui/workflow/workflow-description.astro"
+    },
+    {
+      "from": "workflow-item.astro",
+      "to": "src/components/hybrid-astro-ui/workflow/workflow-item.astro"
+    },
+    {
+      "from": "workflow-title.astro",
+      "to": "src/components/hybrid-astro-ui/workflow/workflow-title.astro"
+    },
+    {
+      "from": "workflow.astro",
+      "to": "src/components/hybrid-astro-ui/workflow/workflow.astro"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+    "title": "Accordion",
+    "name": "accordion",
+    "description": "A UI component that allows users to expand and collapse sections of content. It is ideal for organizing information in a compact manner, such as FAQs or detailed lists, enhancing user experience by reducing clutter on the page. Perfect for Astro projects, the Accordion component supports progressive enhancement and can function without JavaScript, ensuring optimal performance.",
+    "category": "components",
+    "installation": {
+        "cli": {
+            "npm": "npx hybrid-astro-ui@latest add accordion",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add accordion",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add accordion",
+            "bun": "bunx hybrid-astro-ui@latest add accordion"
+        }
+    },
+    "usage": {
+        "import": "import { Accordion, AccordionTrigger, AccordionContent } from \"@/src/components/hybrid-astro-ui/accordion\"",
+        "examples": [
+            {
+                "title": "Basic",
+                "description": "Basic accordion item.",
+                "code": "<Accordion>\n  <AccordionTrigger>What is Hybrid-Astro-UI?</AccordionTrigger>\n  <AccordionContent>Hybrid-Astro-UI is a component library for Astro that prioritizes a zero-JS approach and enables progressive enhancement through web components.</AccordionContent>\n</Accordion>"
+            },
+            {
+                "title": "Open by default",
+                "description": "Accordion item expanded on initial render.",
+                "code": "<Accordion open>\n  <AccordionTrigger>Does it need JavaScript to work?</AccordionTrigger>\n  <AccordionContent>Not necessarily. Components can be rendered statically and add interactivity only when needed, keeping performance optimal.</AccordionContent>\n</Accordion>"
+            }
+        ]
+    },
+    "component_structure": {
+        "files": [
+            {
+                "name": "accordion.astro",
+                "type": "astro",
+                "description": "Accordion root (details)"
+            },
+            {
+                "name": "accordion-trigger.astro",
+                "type": "astro",
+                "description": "Accordion trigger (summary)"
+            },
+            {
+                "name": "accordion-content.astro",
+                "type": "astro",
+                "description": "Accordion content container"
+            },
+            {
+                "name": "index.ts",
+                "type": "typescript",
+                "description": "Exports for accordion components"
+            }
+        ]
+    },
+    "props": [
+        {
+            "name": "Accordion",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the root details element.",
+                    "type": "string",
+                    "default": "-"
+                },
+                {
+                    "name": "...rest",
+                    "description": "Any other details attributes (for example open, id, aria-*, data-*).",
+                    "type": "HTMLAttributes<'details'>",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "AccordionTrigger",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the summary trigger.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        },
+        {
+            "name": "AccordionContent",
+            "props": [
+                {
+                    "name": "class",
+                    "description": "Additional CSS classes applied to the content wrapper.",
+                    "type": "string",
+                    "default": "-"
+                }
+            ]
+        }
+    ],
+    "sourceCodeOfComponts": {
+        "accordion.astro": "---\nimport { cls } from \"@/src/lib/utils\";\nimport { type HTMLAttributes } from \"astro/types\";\n\ninterface Props extends HTMLAttributes<\"details\"> {\n    class?: string;\n}\n\nconst { class: className, ...rest } = Astro.props as Props;\n---\n\n<details\n    {...rest}\n    class={cls(\n        \"border-b last:border-b-0 px-3 py-1\",\n        \"w-full group not-prose text-sm details-content:transition-[height,content-visibility]\",\n        \"details-content:transition-discrete details-content:[interpolate-size:allow-keywords] \",\n        \"details-content:duration-300 details-content:ease-in-out\",\n        className,\n    )}\n>\n    <slot />\n</details>",
+        "accordion-trigger.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n}\nconst { class: className } = Astro.props as Props;\n---\n\n<summary\n    class={cls(\n        \"cursor-pointer select-none py-2 marker:content-['']\",\n        \"flex items-center justify-between font-medium\",\n        className,\n    )}\n>\n    <slot />\n    <svg\n        class=\"w-4 h-4 transition-transform duration-300 group-open:rotate-180\"\n        xmlns=\"http://www.w3.org/2000/svg\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n    >\n        <polyline points=\"6 9 12 15 18 9\"></polyline>\n    </svg>\n</summary>",
+        "accordion-content.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n  class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div\n  class={cls(\n    \"font-normal opacity-0 pb-2 overflow-hidden\",\n    \"translate-y-1\",\n    \"transition-all duration-300 ease-in-out\",\n    \"group-open:opacity-90 group-open:translate-y-0\",\n    className\n  )}\n>\n  <slot />\n</div>",
+        "index.ts": "export { default as Accordion } from './accordion.astro';\nexport {  default as AccordionTrigger } from './accordion-trigger.astro';\nexport {  default as AccordionContent } from './accordion-content.astro';"
+    }
+}

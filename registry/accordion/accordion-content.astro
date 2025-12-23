@@ -1,0 +1,21 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<div
+  class={cls(
+    'font-normal opacity-0 pb-2 overflow-hidden',
+    'translate-y-1',
+    'transition-all duration-300 ease-in-out',
+    'group-open:opacity-90 group-open:translate-y-0',
+    className
+  )}
+>
+  <slot />
+</div>

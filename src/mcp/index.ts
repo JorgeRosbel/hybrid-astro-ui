@@ -35,6 +35,8 @@ const componentFiles = [
   'bento-grid.json',
   'breadcrumb.json',
   'formatted-date.json',
+  'accordion.json',
+  'workflow.json',
 ];
 
 const server = new McpServer({

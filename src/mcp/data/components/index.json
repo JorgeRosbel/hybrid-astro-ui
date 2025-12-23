@@ -146,6 +146,16 @@
       "name": "breadcrumb",
       "title": "Breadcrumb",
       "description": "A simple and accessible breadcrumb navigation component that helps users understand their location within a website's hierarchy. Supports customizable separators and responsive design for optimal usability across devices."
+    },
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "description": "A UI component that allows users to expand and collapse sections of content. It is ideal for organizing information in a compact manner, such as FAQs or detailed lists, enhancing user experience by reducing clutter on the page. Perfect for Astro projects, the Accordion component supports progressive enhancement and can function without JavaScript, ensuring optimal performance."
+    },
+    {
+      "name": "workflow",
+      "title": "Workflow",
+      "description": "A visual representation component for illustrating workflows, processes, or sequences of steps. It is designed to help users understand complex procedures through a clear and structured layout. The Workflow component is ideal for documentation, onboarding guides, or any scenario where step-by-step instructions are needed. Built for Astro projects, it emphasizes accessibility and performance."
     }
   ]
 }

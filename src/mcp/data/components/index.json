@@ -156,6 +156,11 @@
       "name": "workflow",
       "title": "Workflow",
       "description": "A visual representation component for illustrating workflows, processes, or sequences of steps. It is designed to help users understand complex procedures through a clear and structured layout. The Workflow component is ideal for documentation, onboarding guides, or any scenario where step-by-step instructions are needed. Built for Astro projects, it emphasizes accessibility and performance."
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "description": "A tabbed interface component that allows users to switch between different content sections within the same area. It is perfect for organizing related information, such as product details, settings, or documentation, in a compact and user-friendly manner. The Tabs component is designed for Astro projects, ensuring accessibility and optimal performance without relying on JavaScript by default."
     }
   ]
 }

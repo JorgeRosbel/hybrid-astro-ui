@@ -1,0 +1,25 @@
+{
+  "name": "tabs",
+  "files": [
+    {
+      "from": "index.ts",
+      "to": "src/components/hybrid-astro-ui/tabs/index.ts"
+    },
+    {
+      "from": "tab.astro",
+      "to": "src/components/hybrid-astro-ui/tabs/tab.astro"
+    },
+    {
+      "from": "tabs-item.astro",
+      "to": "src/components/hybrid-astro-ui/tabs/tabs-item.astro"
+    },
+    {
+      "from": "tabs-reactive-item.astro",
+      "to": "src/components/hybrid-astro-ui/tabs/tabs-reactive-item.astro"
+    },
+    {
+      "from": "tabs.astro",
+      "to": "src/components/hybrid-astro-ui/tabs/tabs.astro"
+    }
+  ]
+}

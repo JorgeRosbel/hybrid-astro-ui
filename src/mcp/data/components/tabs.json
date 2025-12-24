@@ -1,0 +1,97 @@
+{
+    "title": "Tabs",
+    "name": "tabs",
+    "description": "A flexible tabs component system for organizing content into separate views with button and underline variants. Uses radio inputs for accessibility and native form behavior.",
+    "category": "components",
+    "installation": {
+        "cli": {
+            "npm": "npx hybrid-astro-ui@latest add tabs",
+            "pnpm": "pnpm dlx hybrid-astro-ui@latest add tabs",
+            "yarn": "yarn dlx hybrid-astro-ui@latest add tabs",
+            "bun": "bunx hybrid-astro-ui@latest add tabs"
+        }
+    },
+    "usage": {
+        "import": "import { Tabs, Tab, TabsReactiveItem, TabsItem } from \"@/src/components/hybrid-astro-ui/tabs\"",
+        "examples": [
+            {
+                "title": "Button variant",
+                "description": "Tabs with button-style styling",
+                "code": "<Tabs>\n    <TabsItem>\n        <Tab group_name=\"group-1\" selected for=\"tab1\">\n            Tab 1\n        </Tab>\n        <TabsReactiveItem>\n            This is a short placeholder text used to preview how content will appear in this section.\n        </TabsReactiveItem>\n    </TabsItem>\n\n    <TabsItem>\n        <Tab group_name=\"group-1\" for=\"tab2\">\n            Tab 2\n        </Tab>  \n        <TabsReactiveItem>\n            Sample text that helps visualize spacing, layout, and typography in the interface.\n        </TabsReactiveItem>\n    </TabsItem>\n</Tabs>"
+            },
+            {
+                "title": "Underline variant",
+                "description": "Tabs with underline-style styling",
+                "code": "<Tabs>\n    <TabsItem>\n        <Tab variant=\"underline\" group_name=\"group-2\" selected for=\"tab-a\">\n            Tab A\n        </Tab>\n        <TabsReactiveItem>\n            Use this area to display brief information or contextual guidance for users.\n        </TabsReactiveItem>\n    </TabsItem>\n\n    <TabsItem>\n        <Tab variant=\"underline\" group_name=\"group-2\" for=\"tab-b\">\n            Tab B\n        </Tab>  \n        <TabsReactiveItem>\n            Temporary content to illustrate structure before real data is added\n        </TabsReactiveItem>\n    </TabsItem>\n</Tabs>"
+            }
+        ]
+    },
+    "component_structure": {
+        "files": [
+            {
+                "name": "tabs.astro",
+                "type": "astro",
+                "description": "Main Tabs container component"
+            },
+            {
+                "name": "tab.astro",
+                "type": "astro",
+                "description": "Individual Tab component with radio input control"
+            },
+            {
+                "name": "tabs-item.astro",
+                "type": "astro",
+                "description": "TabsItem wrapper component for tab and content pairing"
+            },
+            {
+                "name": "tabs-reactive-item.astro",
+                "type": "astro",
+                "description": "TabsReactiveItem component for tab content with show/hide animation"
+            },
+            {
+                "name": "index.ts",
+                "type": "typescript",
+                "description": "Export file for all Tabs subcomponents"
+            }
+        ]
+    },
+    "props": [
+        {
+            "name": "class",
+            "description": "Additional custom classes for Tabs container",
+            "type": "string",
+            "default": "-"
+        },
+        {
+            "name": "group_name",
+            "description": "The name attribute for the radio inputs to group tabs (Tab component)",
+            "type": "string",
+            "default": "required"
+        },
+        {
+            "name": "for",
+            "description": "The id of the corresponding tab content (Tab component)",
+            "type": "string",
+            "default": "required"
+        },
+        {
+            "name": "selected",
+            "description": "Whether the tab is selected by default (Tab component)",
+            "type": "boolean",
+            "default": "false"
+        },
+        {
+            "name": "variant",
+            "description": "The style variant of the tab (Tab component)",
+            "type": "\"button\" | \"underline\"",
+            "default": "\"button\""
+        }
+    ],
+    "sourceCodeOfComponts": {
+        "tabs.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n  class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div data-slot=\"tabs-panel\" class={cls(\"flex gap-3 relative w-full\", className)}>\n  <slot />\n</div>",
+        "tab.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n    class?: string;\n    selected?: boolean;\n    for: string;\n    group_name: string;\n    variant?: \"button\" | \"underline\";\n}\n\nconst { class: className, selected, for: htmlFor, variant = \"button\", group_name } = Astro.props as Props;\n---\n\n<label\n    data-slot=\"tab\"\n    for={htmlFor}\n    class={cls(\n        \"relative cursor-pointer  select-none text-sm font-medium transition-colors duration-200\",\n        variant === \"button\" && \"px-4 [:has(+_input:checked)]:text-white [:has(+_input:checked)]:bg-primary/80 py-2 rounded-lg border  bg-muted hover:bg-accent/50 peer-checked:bg-accent\",\n        variant === \"underline\" && \"pb-2 border-b-2 hover:border-b-accent [:has(+_input:checked)]:border-b-primary/80\",\n        className)}\n>\n    <slot />\n</label>\n<input\n    id={htmlFor}\n    checked={selected}\n    name={group_name}\n    type=\"radio\"\n    class=\"opacity-100 sr-only peer left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2\"\n/>",
+        "tabs-item.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n  class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div data-slot=\"tabs-item\" class={cls(\"\", className)}>\n  <slot />\n</div>",
+        "tabs-reactive-item.astro": "---\nimport { cls } from \"@/src/lib/utils\";\n\ninterface Props {\n  class?: string;\n}\n\nconst { class: className } = Astro.props as Props;\n---\n\n<div data-slot=\"tabs-reactive-item\" class={cls(\n  `absolute peer-checked:visible peer-not-checked:invisible top-full left-0 transition-all duration-200\n    w-full bg-muted p-2 rounded mt-3 peer-not-checked:opacity-50 peer-checked:opacity-100`, className)}>\n  <slot />\n</div>",
+        "index.ts": "export { default as Tab } from './tab.astro';\nexport { default as Tabs } from './tabs.astro';\nexport { default as TabsReactiveItem } from './tabs-reactive-item.astro';\nexport { default as TabsItem } from './tabs-item.astro';"
+    }
+}

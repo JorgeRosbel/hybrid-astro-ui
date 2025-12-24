@@ -37,6 +37,7 @@ const componentFiles = [
   'formatted-date.json',
   'accordion.json',
   'workflow.json',
+  'tabs.json',
 ];
 
 const server = new McpServer({

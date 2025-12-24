@@ -1,0 +1,20 @@
+---
+import { cls } from '@/src/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<div
+  data-slot="tabs-reactive-item"
+  class={cls(
+    `absolute peer-checked:visible peer-not-checked:invisible top-full left-0 transition-all duration-200
+    w-full bg-muted p-2 rounded mt-3 peer-not-checked:opacity-50 peer-checked:opacity-100`,
+    className
+  )}
+>
+  <slot />
+</div>
